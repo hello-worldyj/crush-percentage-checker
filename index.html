@@ -1,77 +1,73 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2487.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000; min-height: 14.0px}
-    span.s1 {font-kerning: none}
+  <meta charset="UTF-8">
+  <title>짝사랑 확률 테스트 💘</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      background-color: #fff0f5;
+      padding-top: 100px;
+    }
+    input, button {
+      padding: 12px;
+      margin: 8px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #ff69b4;
+      color: white;
+      cursor: pointer;
+    }
+    #result {
+      font-size: 20px;
+      margin-top: 30px;
+    }
   </style>
 </head>
 <body>
-<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
-<p class="p1"><span class="s1">&lt;html lang="ko"&gt;</span></p>
-<p class="p1"><span class="s1">&lt;head&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;title&gt;짝사랑 확률 테스트&lt;/title&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;style&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>body {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-family: sans-serif;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>text-align: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-top: 100px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>input, button {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 10px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin: 10px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 16px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
-<p class="p1"><span class="s1">&lt;body&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;h1&gt;짝사랑 성공 확률 테스트 💘&lt;/h1&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;p&gt;당신과 그 사람의 이름을 입력하세요!&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;input type="text" id="yourName" placeholder="당신의 이름"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;br&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;input type="text" id="crushName" placeholder="짝사랑 이름"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;br&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;button onclick="submitForm()"&gt;확률 보기&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;p id="result" style="margin-top: 20px; font-size: 18px;"&gt;&lt;/p&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;script&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>function submitForm() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const yourName = document.getElementById('yourName').value;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const crushName = document.getElementById('crushName').value;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const resultText = document.getElementById('result');</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (!yourName || !crushName) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>alert("이름을 모두 입력해주세요!");</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>return;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>// 랜덤 확률 생성</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const percent = Math.floor(Math.random() * 51) + 50;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>resultText.innerText = `😍 ${yourName}와(과) ${crushName}의 짝사랑 성공 확률은 ${percent}%입니다!`;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>// 이메일 발송</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>fetch("https://formspree.io/f/xanegwav", {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>method: "POST",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>headers: {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>"Accept": "application/json",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>"Content-Type": "application/json"</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>body: JSON.stringify({</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>name: yourName,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>crush: crushName,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>message: `${yourName} -&gt; ${crushName}`,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>})</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>});</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+  <h1>💘 짝사랑 성공 확률 테스트 💘</h1>
+  <p>두 사람의 이름을 입력하세요!</p>
+  <form id="loveForm">
+    <input type="text" id="yourName" name="yourName" placeholder="당신의 이름" required><br>
+    <input type="text" id="crushName" name="crushName" placeholder="짝사랑 상대 이름" required><br>
+    <button type="submit">확률 보기</button>
+  </form>
+  <div id="result"></div>
+
+  <script>
+    document.getElementById("loveForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const yourName = document.getElementById("yourName").value.trim();
+      const crushName = document.getElementById("crushName").value.trim();
+      const resultBox = document.getElementById("result");
+
+      if (!yourName || !crushName) {
+        resultBox.innerText = "⚠️ 이름을 모두 입력해주세요!";
+        return;
+      }
+
+      const percent = Math.floor(Math.random() * 51) + 50;
+      resultBox.innerText = `😍 ${yourName}와(과) ${crushName}의 짝사랑 성공 확률은 ${percent}%입니다!`;
+
+  
+      fetch("https://formspree.io/f/xanegwav", {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          yourName: yourName,
+          crushName: crushName,
+          message: `${yourName}가 ${crushName}를 좋아해요! 성공 확률: ${percent}%`
+        })
+      });
+    });
+  </script>
 </body>
 </html>
