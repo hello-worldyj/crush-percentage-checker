@@ -67,7 +67,7 @@
       }
 
       // 이름이 같으면 오류 메시지
-      if (yourName === crushName) {
+      if (yourName.toLowerCase() === crushName.toLowerCase()) {  // 대소문자 구분 없이 비교
         resultBox.innerText = "⚠️ 같은 이름이 입력되었습니다. 다른 이름을 입력해주세요!";
         return;
       }
