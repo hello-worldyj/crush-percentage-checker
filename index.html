@@ -2,6 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>짝사랑 확률 테스트 💘</title>
   <style>
     body {
@@ -16,15 +17,29 @@
       font-size: 16px;
       border-radius: 6px;
       border: 1px solid #ccc;
+      width: 80%;
+      max-width: 400px;
     }
     button {
       background-color: #ff69b4;
       color: white;
       cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #ff1493;
     }
     #result {
       font-size: 20px;
       margin-top: 30px;
+    }
+    @media (max-width: 600px) {
+      body {
+        padding-top: 60px;
+      }
+      input, button {
+        width: 90%;
+      }
     }
   </style>
 </head>
@@ -51,10 +66,16 @@
         return;
       }
 
-      const percent = Math.floor(Math.random() * 51) + 50;
+      // 이름이 같으면 오류 메시지
+      if (yourName === crushName) {
+        resultBox.innerText = "⚠️ 같은 이름이 입력되었습니다. 다른 이름을 입력해주세요!";
+        return;
+      }
+
+      // 확률을 30%에서 90% 사이로 랜덤하게 변경
+      const percent = Math.floor(Math.random() * 61) + 30;
       resultBox.innerText = `😍 ${yourName}와(과) ${crushName}의 짝사랑 성공 확률은 ${percent}%입니다!`;
 
-  
       fetch("https://formspree.io/f/xanegwav", {
         method: "POST",
         headers: {
