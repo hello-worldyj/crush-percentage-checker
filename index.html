@@ -1,3 +1,89 @@
+/**
+ * Deploys a web app that displays a form and saves data to a Google Sheet.
+ */
+function doGet(e) {
+  return HtmlService.createHtmlOutput(getHTML())
+    .setTitle("짝사랑 확률 테스트")
+    .setSandboxMode(HtmlService.SandboxMode.IFRAME); // Recommended for security
+}
+
+/**
+ * Handles POST requests. Parses JSON data, saves it to a Google Sheet, and returns a JSON response.
+ * @param {Object} e Event object containing request parameters, including the POST data.
+ * @return {ContentService} JSON response indicating success or failure.
+ */
+function doPost(e) {
+  try {
+    // Check if the POST data exists
+    if (!e || !e.postData || !e.postData.contents) {
+      throw new Error("No data received in the POST request.");
+    }
+
+    // Parse the JSON data from the request body
+    let data;
+    try {
+      data = JSON.parse(e.postData.contents);
+    } catch (parseError) {
+      throw new Error("Failed to parse JSON data: " + parseError.message);
+    }
+
+    Logger.log("📩 Received data: %s", JSON.stringify(data));
+
+    // Get the active spreadsheet and sheet
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    if (!ss) {
+      throw new Error("No active spreadsheet found.");
+    }
+    const sheet = ss.getActiveSheet();
+    if (!sheet) {
+      throw new Error("No active sheet found in the spreadsheet.");
+    }
+
+    // Extract data fields dynamically.  This assumes the website's form fields
+    // are sent as key-value pairs in the JSON data.
+    const rowData = [Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "yyyy-MM-dd HH:mm:ss")]; // Add timestamp
+
+    // Iterate through the keys in the JSON data and add the values to the rowData array.
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        rowData.push(data[key] || ""); // Add the value, or an empty string if it's null/undefined
+      }
+    }
+
+    // Append the data to the sheet
+    sheet.appendRow(rowData);
+
+    // Construct a success response
+    const output = {
+      status: "success",
+      message: "Data saved successfully."
+    };
+
+    return ContentService
+      .createTextOutput(JSON.stringify(output))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (err) {
+    // Handle errors gracefully
+    Logger.log("❌ Error occurred: %s", err);
+    const output = {
+      status: "error",
+      message: "An error occurred: " + err.message
+    };
+
+    // Return an error response
+    return ContentService
+      .createTextOutput(JSON.stringify(output))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+/**
+ * Returns the HTML content for the web app.
+ * @return {string} The HTML content.
+ */
+function getHTML() {
+  return `
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -73,12 +159,12 @@
         }
 
         const percent = Math.floor(Math.random() * 2) + 99;
-        resultBox.innerText = `😍 ${yourName}와(과) ${crushName}의 짝사랑 성공 확률은 ${percent}%입니다!`;
+        resultBox.innerText = \`😍 ${yourName}와(과) ${crushName}의 짝사랑 성공 확률은 ${percent}%입니다!\`;
 
-        // Updated endpoint URL
-        const webAppUrl = "https://script.google.com/macros/s/AKfycbxeVQLXUPeAtuw-r9SNOakOJvelvoKR9trgZQmxbkQGrSTn7IJgCv8jgSZmX8H0_LN7/exec";
+        // Get the script URL from the current script's properties
+        const scriptURL = ScriptApp.getService().getUrl();
 
-        fetch(webAppUrl, {
+        fetch(scriptURL, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -86,19 +172,18 @@
           body: JSON.stringify({
             yourName: yourName,
             crushName: crushName,
-            message: `${yourName}가 ${crushName}를 좋아해요! 성공 확률: ${percent}%`
+            message: \`\${yourName}가 \${crushName}를 좋아해요! 성공 확률: \${percent}%\`
           })
         })
         .then(response => {
           if (!response.ok) {
-            throw new Error(`Network response was not ok: ${response.status}`); // Include status code in error
+            throw new Error(\`Network response was not ok: \${response.status}\`); // Include status code in error
           }
           return response.text(); // Or response.json() if the server returns JSON
         })
         .then(data => {
           console.log("서버 응답:", data);
-          // Optionally display a success message to the user
-          // resultBox.innerText = "Data saved successfully!";
+          resultBox.innerText = "데이터 저장 성공!"; // Display success message to user
         })
         .catch(err => {
           console.error("❌ 오류 발생:", err);
@@ -109,3 +194,5 @@
   </script>
 </body>
 </html>
+  `;
+}
