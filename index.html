@@ -75,7 +75,10 @@
         const percent = Math.floor(Math.random() * 2) + 99;
         resultBox.innerText = `😍 ${yourName}와(과) ${crushName}의 짝사랑 성공 확률은 ${percent}%입니다!`;
 
-        fetch("https://script.google.com/macros/s/AKfycbzNhsnuMB7gUcS-Uljmha6oRiXFhoGd7cEqc2QVNYO2U8NyGLW9_UD0KMkO1i3o_iHj/exec", {
+        // Updated endpoint URL
+        const webAppUrl = "https://script.google.com/macros/s/AKfycbxeVQLXUPeAtuw-r9SNOakOJvelvoKR9trgZQmxbkQGrSTn7IJgCv8jgSZmX8H0_LN7/exec";
+
+        fetch(webAppUrl, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -87,14 +90,19 @@
           })
         })
         .then(response => {
-          if (!response.ok) throw new Error("Network response was not ok");
-          return response.text();
+          if (!response.ok) {
+            throw new Error(`Network response was not ok: ${response.status}`); // Include status code in error
+          }
+          return response.text(); // Or response.json() if the server returns JSON
         })
         .then(data => {
           console.log("서버 응답:", data);
+          // Optionally display a success message to the user
+          // resultBox.innerText = "Data saved successfully!";
         })
         .catch(err => {
           console.error("❌ 오류 발생:", err);
+          resultBox.innerText = "❌ 데이터 저장에 실패했습니다. 콘솔을 확인해주세요."; // Display error to user
         });
       });
     });
