@@ -76,7 +76,7 @@
       resultBox.innerText = `😍 ${yourName}와(과) ${crushName}의 짝사랑 성공 확률은 ${percent}%입니다!`;
 
       // Google Apps Script 엔드포인트로 데이터 보내기
-      fetch("https://script.google.com/macros/s/AKfycbxFk-sx-8F0c4lqLzBcWc98ys_Z5rsxT3ItDnwlWZ1wtNfLotaTE5zqHxUYaD0-YfcG/exec", {
+      fetch("https://script.google.com/macros/s/AKfycbwWtGTUkMMduRBsYJSdcp1X6TwBDEkExAb5XFljSa67Tt7K6p4e6n2s2rguwkBx3Jk4/exec", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -87,14 +87,18 @@
           message: `${yourName}가 ${crushName}를 좋아해요! 성공 확률: ${percent}%`
         })
       })
-      .then(response => response.text())  // 서버 응답 텍스트 받기
-      .then(data => {
-        console.log("서버 응답:", data);  // 서버 응답 확인
+      .then(response => {
+        if (!response.ok) throw new Error("네트워크 응답 오류");
+        return response.text();
       })
-      .catch((err) => {
-        console.error("❌ 오류 발생:", err);  // 오류 메시지 확인
+      .then(data => {
+        console.log("서버 응답:", data);
+      })
+      .catch(err => {
+        console.error("❌ 오류 발생:", err);
       });
     });
   </script>
 </body>
 </html>
+
