@@ -161,10 +161,10 @@ function getHTML() {
         const percent = Math.floor(Math.random() * 2) + 99;
         resultBox.innerText = \`😍 ${yourName}와(과) ${crushName}의 짝사랑 성공 확률은 ${percent}%입니다!\`;
 
-        // Get the script URL from the current script's properties
-        const scriptURL = ScriptApp.getService().getUrl();
+        // 새 엔드포인트 URL 사용
+        const endpointURL = "http://192ec30d-1d62-458c-893f-fd0876b63d14-00-1swqwmtc54gl8.riker.replit.dev/";
 
-        fetch(scriptURL, {
+        fetch(endpointURL, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -177,17 +177,17 @@ function getHTML() {
         })
         .then(response => {
           if (!response.ok) {
-            throw new Error(\`Network response was not ok: \${response.status}\`); // Include status code in error
+            throw new Error(\`Network response was not ok: \${response.status}\`);
           }
-          return response.text(); // Or response.json() if the server returns JSON
+          return response.text(); 
         })
         .then(data => {
           console.log("서버 응답:", data);
-          resultBox.innerText = "데이터 저장 성공!"; // Display success message to user
+          resultBox.innerText = "데이터 저장 성공!";
         })
         .catch(err => {
           console.error("❌ 오류 발생:", err);
-          resultBox.innerText = "❌ 데이터 저장에 실패했습니다. 콘솔을 확인해주세요."; // Display error to user
+          resultBox.innerText = "❌ 데이터 저장에 실패했습니다. 콘솔을 확인해주세요.";
         });
       });
     });
