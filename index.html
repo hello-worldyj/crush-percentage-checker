@@ -17,8 +17,9 @@
       display: inline-block;
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
       max-width: 420px;
+      text-align: left;
     }
-    h1 { color: #ff69b4; }
+    h1 { color: #ff69b4; text-align: center; }
     label { display: block; margin: 10px 0 5px; }
     input[type="text"] {
       padding: 8px;
@@ -26,7 +27,7 @@
       border-radius: 6px;
       border: 1px solid #ccc;
     }
-    .question { margin-top: 20px; text-align: left; }
+    .question { margin-top: 20px; }
     button {
       margin-top: 20px;
       padding: 10px 20px;
@@ -36,8 +37,9 @@
       color: white;
       font-size: 16px;
       cursor: pointer;
+      width: 100%;
     }
-    #result { margin-top: 25px; font-size: 20px; font-weight: bold; }
+    #result { margin-top: 25px; font-size: 20px; font-weight: bold; text-align: center; }
   </style>
 </head>
 <body>
@@ -56,7 +58,7 @@
       <label><input type="radio" name="q1" value="70"> 자주 해요</label>
       <label><input type="radio" name="q1" value="100"> 매일 대화해요</label>
     </div>
-
+    
     <div class="question">
       <label>2️⃣ 상대가 나를 볼 때 미소를 짓나요?</label>
       <label><input type="radio" name="q2" value="10"> 전혀 아니요</label>
@@ -75,9 +77,9 @@
 
     <div class="question">
       <label>4️⃣ 서로 SNS에서 서로를 팔로우하고 있나요?</label>
-      <label><input type="radio" name="q4" value="20"> 아니요</label>
-      <label><input type="radio" name="q4" value="60"> 나만 팔로우해요</label>
-      <label><input type="radio" name="q4" value="90"> 서로 팔로우해요</label>
+      <label><input type="radio" name="q4" value="20"> 둘 다 안 해요</label>
+      <label><input type="radio" name="q4" value="50"> 한 명만 해요</label>
+      <label><input type="radio" name="q4" value="80"> 서로 팔로우해요</label>
       <label><input type="radio" name="q4" value="100"> 자주 소통해요 💞</label>
     </div>
 
@@ -89,6 +91,14 @@
       <label><input type="radio" name="q5" value="100"> 확실히 관심 있어요 ❤️</label>
     </div>
 
+    <div class="question">
+      <label>6️⃣ 상대방이 답장을 어떻게 하나요?</label>
+      <label><input type="radio" name="q6" value="20"> 단답형이에요 😐</label>
+      <label><input type="radio" name="q6" value="50"> 그냥 평범해요</label>
+      <label><input type="radio" name="q6" value="80"> 귀엽거나 재밌게 답해요 😊</label>
+      <label><input type="radio" name="q6" value="100"> 애교 섞인 톤이에요 💕</label>
+    </div>
+    
     <button type="submit">결과 보기</button>
   </form>
 
@@ -107,9 +117,8 @@
         return;
       }
 
-      const questions = ['q1', 'q2', 'q3', 'q4', 'q5'];
-      let total = 0;
-      let answered = 0;
+      const questions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'];
+      let total = 0, answered = 0;
 
       for (const q of questions) {
         const selected = document.querySelector(`input[name="${q}"]:checked`);
@@ -138,17 +147,11 @@
         <span style="font-size:24px;color:#ff69b4;">${percent}%</span><br><br>${message}
       `;
 
-      // 원하면 결과 전송 유지 가능
       fetch("https://formspree.io/f/xanegwav", {
         method: "POST",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
-        },
+        headers: { "Accept": "application/json", "Content-Type": "application/json" },
         body: JSON.stringify({
-          yourName,
-          crushName,
-          percent,
+          yourName, crushName, percent,
           message: `${yourName}와 ${crushName}의 짝사랑 확률: ${percent}%`
         })
       }).catch(() => {});
