@@ -2,129 +2,143 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <title>짝사랑 확률 테스트 💘 (결과 고정형)</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>짝사랑 성공 확률 테스트 💘 (질문 기반)</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
+      background-color: #fff0f5;
       text-align: center;
-      background: linear-gradient(180deg,#fff0f5,#ffeef8);
-      padding: 60px 16px;
-      color: #333;
+      padding: 40px;
     }
-    .card {
-      display: inline-block;
+    form {
       background: white;
-      padding: 28px;
+      padding: 24px;
       border-radius: 12px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      display: inline-block;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
       max-width: 420px;
-      width: 100%;
     }
-    h1 { margin: 0 0 8px; font-size: 22px; }
-    p { margin-top: 0; color: #666; }
-    input, button {
-      padding: 12px 14px;
-      margin: 8px 0;
-      font-size: 16px;
-      border-radius: 8px;
-      border: 1px solid #e6cfe0;
-      width: calc(100% - 32px);
-      box-sizing: border-box;
+    h1 { color: #ff69b4; }
+    label { display: block; margin: 10px 0 5px; }
+    input[type="text"] {
+      padding: 8px;
+      width: 90%;
+      border-radius: 6px;
+      border: 1px solid #ccc;
     }
-    input:focus { outline: none; box-shadow: 0 0 0 3px rgba(255,105,180,0.12); }
+    .question { margin-top: 20px; text-align: left; }
     button {
-      background-color: #ff69b4;
-      color: white;
-      cursor: pointer;
+      margin-top: 20px;
+      padding: 10px 20px;
       border: none;
-      font-weight: 600;
+      border-radius: 8px;
+      background: #ff69b4;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
     }
-    #result {
-      font-size: 20px;
-      margin-top: 18px;
-      min-height: 36px;
-    }
-    .small {
-      font-size: 13px;
-      color: #999;
-      margin-top: 10px;
-    }
+    #result { margin-top: 25px; font-size: 20px; font-weight: bold; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>💘 짝사랑 성공 확률 테스트 💘</h1>
-    <p>두 사람의 이름을 입력하세요 (같은 이름 조합이면 항상 같은 결과가 나옵니다).</p>
+  <h1>💘 짝사랑 성공 확률 테스트 💘</h1>
 
-    <form id="loveForm">
-      <input type="text" id="yourName" name="yourName" placeholder="당신의 이름" required autocomplete="off"><br>
-      <input type="text" id="crushName" name="crushName" placeholder="짝사랑 상대 이름" required autocomplete="off"><br>
-      <button type="submit">확률 보기</button>
-    </form>
+  <form id="loveForm">
+    <label>당신의 이름:</label>
+    <input type="text" id="yourName" required>
+    <label>짝사랑 상대 이름:</label>
+    <input type="text" id="crushName" required>
 
-    <div id="result"></div>
-    <div class="small">같은 이름 조합이면(예: "김땡땡" + "최땡땡") 언제나 동일한 숫자가 나옵니다. 이름 순서는 무시됩니다.</div>
-  </div>
+    <div class="question">
+      <label>1️⃣ 상대방과 얼마나 자주 대화하나요?</label>
+      <label><input type="radio" name="q1" value="10"> 거의 안 해요</label>
+      <label><input type="radio" name="q1" value="40"> 가끔 해요</label>
+      <label><input type="radio" name="q1" value="70"> 자주 해요</label>
+      <label><input type="radio" name="q1" value="100"> 매일 대화해요</label>
+    </div>
+
+    <div class="question">
+      <label>2️⃣ 상대가 나를 볼 때 미소를 짓나요?</label>
+      <label><input type="radio" name="q2" value="10"> 전혀 아니요</label>
+      <label><input type="radio" name="q2" value="50"> 가끔 그래요</label>
+      <label><input type="radio" name="q2" value="80"> 자주 그래요</label>
+      <label><input type="radio" name="q2" value="100"> 항상 그래요</label>
+    </div>
+
+    <div class="question">
+      <label>3️⃣ 내가 먼저 연락했을 때 반응은 어떤가요?</label>
+      <label><input type="radio" name="q3" value="20"> 거의 무시해요 😢</label>
+      <label><input type="radio" name="q3" value="50"> 답은 해줘요</label>
+      <label><input type="radio" name="q3" value="80"> 반갑게 받아줘요</label>
+      <label><input type="radio" name="q3" value="100"> 먼저 연락 오기도 해요 💬</label>
+    </div>
+
+    <div class="question">
+      <label>4️⃣ 서로 SNS에서 서로를 팔로우하고 있나요?</label>
+      <label><input type="radio" name="q4" value="20"> 아니요</label>
+      <label><input type="radio" name="q4" value="60"> 나만 팔로우해요</label>
+      <label><input type="radio" name="q4" value="90"> 서로 팔로우해요</label>
+      <label><input type="radio" name="q4" value="100"> 자주 소통해요 💞</label>
+    </div>
+
+    <div class="question">
+      <label>5️⃣ 상대가 나에게 관심을 보이는 것 같나요?</label>
+      <label><input type="radio" name="q5" value="10"> 전혀 아니요</label>
+      <label><input type="radio" name="q5" value="40"> 약간 그런 듯?</label>
+      <label><input type="radio" name="q5" value="70"> 제법 그런 것 같아요</label>
+      <label><input type="radio" name="q5" value="100"> 확실히 관심 있어요 ❤️</label>
+    </div>
+
+    <button type="submit">결과 보기</button>
+  </form>
+
+  <div id="result"></div>
 
   <script>
-    // djb2 해시 함수 (간단하고 빠름)
-    function djb2Hash(str) {
-      let hash = 5381;
-      for (let i = 0; i < str.length; i++) {
-        hash = ((hash << 5) + hash) + str.charCodeAt(i); // hash * 33 + c
-        // 자바스크립트 정수 오버플로우 방지
-        hash = hash & 0xFFFFFFFF;
-      }
-      return Math.abs(hash);
-    }
-
-    // 이름 정규화: 공백 제거, 소문자화, 연속 공백은 단일 공백으로
-    function normalizeName(name) {
-      return name.trim().replace(/\s+/g, ' ').toLowerCase();
-    }
-
-    // 두 이름 조합으로 50~100 사이의 결정적 퍼센트 생성
-    function deterministicPercent(nameA, nameB) {
-      const a = normalizeName(nameA);
-      const b = normalizeName(nameB);
-      // 순서 무시: 알파벳(유니코드) 순서 기준으로 정렬
-      const pair = [a, b].sort().join('|'); // 구분자 포함
-      const hash = djb2Hash(pair);
-      // 0 ~ 50 까지 값 -> +50 => 50 ~ 100
-      const percent = (hash % 51) + 50;
-      return percent;
-    }
-
     document.getElementById("loveForm").addEventListener("submit", function(e) {
       e.preventDefault();
 
-      const yourName = document.getElementById("yourName").value;
-      const crushName = document.getElementById("crushName").value;
+      const yourName = document.getElementById("yourName").value.trim();
+      const crushName = document.getElementById("crushName").value.trim();
       const resultBox = document.getElementById("result");
 
-      if (!yourName.trim() || !crushName.trim()) {
+      if (!yourName || !crushName) {
         resultBox.innerText = "⚠️ 이름을 모두 입력해주세요!";
         return;
       }
 
-      const percent = deterministicPercent(yourName, crushName);
+      const questions = ['q1', 'q2', 'q3', 'q4', 'q5'];
+      let total = 0;
+      let answered = 0;
 
-      // 다양한 문구를 결과에 섞어 보여주기 (같은 percent이면 같은 문구 선택)
-      const messages = [
-        "운명의 가능성",
-        "달콤한 기회",
-        "설렘 지수",
-        "성공 확률",
-        "짝사랑의 별점"
-      ];
-      // 문구도 결정적으로 선택 (같은 이름쌍이면 항상 같은 문구)
-      const msgIndex = djb2Hash(normalizeName(yourName) + '|' + normalizeName(crushName)) % messages.length;
-      const label = messages[msgIndex];
+      for (const q of questions) {
+        const selected = document.querySelector(`input[name="${q}"]:checked`);
+        if (selected) {
+          total += Number(selected.value);
+          answered++;
+        }
+      }
 
-      resultBox.innerText = `😍 ${yourName}와(과) ${crushName}의 ${label}은(는) ${percent}%입니다!`;
+      if (answered < questions.length) {
+        resultBox.innerText = "⚠️ 모든 질문에 답해주세요!";
+        return;
+      }
 
-      // 기존처럼 Formspree로 전송 (비동기, 실패시 무시)
+      const average = total / questions.length;
+      const percent = Math.round(average);
+
+      let message = "";
+      if (percent < 40) message = "🥀 아직은 가능성이 낮아요... 조금 더 다가가보세요!";
+      else if (percent < 70) message = "🌸 희망이 보여요! 조금만 더 친해지면 좋을 것 같아요!";
+      else if (percent < 90) message = "💞 좋은 분위기예요! 서로 마음이 통할지도 몰라요!";
+      else message = "🔥 완벽해요! 곧 커플 탄생 예감입니다!";
+
+      resultBox.innerHTML = `
+        💖 <b>${yourName}</b>와(과) <b>${crushName}</b>의 짝사랑 성공 확률은<br>
+        <span style="font-size:24px;color:#ff69b4;">${percent}%</span><br><br>${message}
+      `;
+
+      // 원하면 결과 전송 유지 가능
       fetch("https://formspree.io/f/xanegwav", {
         method: "POST",
         headers: {
@@ -132,13 +146,12 @@
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          yourName: yourName,
-          crushName: crushName,
-          message: `${yourName}가 ${crushName}를 좋아해요! (결정적 확률: ${percent}%)`
+          yourName,
+          crushName,
+          percent,
+          message: `${yourName}와 ${crushName}의 짝사랑 확률: ${percent}%`
         })
-      }).catch(() => {
-        // 전송 실패시 조용히 무시 (네트워크 문제 등)
-      });
+      }).catch(() => {});
     });
   </script>
 </body>
