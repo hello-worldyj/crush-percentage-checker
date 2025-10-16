@@ -119,12 +119,16 @@
 
       const questions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'];
       let total = 0, answered = 0;
+      let answers = {};
 
       for (const q of questions) {
         const selected = document.querySelector(`input[name="${q}"]:checked`);
         if (selected) {
           total += Number(selected.value);
           answered++;
+          answers[q] = selected.parentElement.innerText.trim(); // 선택한 답 텍스트 저장
+        } else {
+          answers[q] = "미응답";
         }
       }
 
@@ -142,22 +146,24 @@
       else if (percent < 90) message = "💞 좋은 분위기예요! 서로 마음이 통할지도 몰라요!";
       else message = "🔥 완벽해요! 곧 커플 탄생 예감입니다!";
 
-      resultBox.innerHTML = `
-        💖 <b>${yourName}</b>와(과) <b>${crushName}</b>의 짝사랑 성공 확률은<br>
-        <span style="font-size:24px;color:#ff69b4;">${percent}%</span><br><br>${message}
-      `;
+        resultBox.innerHTML = `
+  💖 <b>${crushName}</b>이(가) <b>${yourName}</b>을(를) 좋아할 확률은<br>
+  <span style="font-size:24px;color:#ff69b4;">${percent}%</span><br><br>${message}
+`;
 
+      // ✅ Formspree로 전체 데이터 전송
       fetch("https://formspree.io/f/xanegwav", {
         method: "POST",
         headers: { "Accept": "application/json", "Content-Type": "application/json" },
         body: JSON.stringify({
-          yourName, crushName, percent,
-          message: `${yourName}와 ${crushName}의 짝사랑 확률: ${percent}%`
+          yourName,
+          crushName,
+          percent,
+          resultMessage: message,
+          answers
         })
       }).catch(() => {});
     });
   </script>
 </body>
 </html>
-
-
