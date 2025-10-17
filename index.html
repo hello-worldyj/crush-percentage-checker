@@ -41,11 +41,11 @@
       width: 100%;
       position: relative;
     }
-    /* 🔥 버튼 안의 작은 텍스트 색상을 버튼과 동일하게 변경 */
+    /* 📍 위치 공유 텍스트 색상 (핫핑크) */
     button span {
       display: block;
       font-size: 11px;
-      color: #ff69b4; /* 버튼 색과 동일 */
+      color: #ff1493;
       margin-top: 3px;
     }
     #locationStatus {
@@ -71,7 +71,7 @@
     <label>짝사랑 상대 이름:</label>
     <input type="text" id="crushName" required>
 
-    <!-- ✅ 질문 10개 그대로 유지 -->
+    <!-- 질문 10개 그대로 유지 -->
     <div class="question">
       <label>1️⃣ 상대와 얼마나 자주 대화하나요?</label>
       <label class="option"><input type="radio" name="q1" value="10"> 거의 안 해요</label>
@@ -154,7 +154,7 @@
 
     <button type="submit" id="submitBtn">
       결과 보기
-      <span> 위치 공유하기 </span>
+      <span>📍 위치 공유하기 (선택)</span>
     </button>
     <p id="locationStatus"></p>
   </form>
@@ -162,25 +162,30 @@
   <div id="result"></div>
 
   <script>
-    let userLocation = "위치 정보 없음";
+    // 위치 요청을 Promise로 래핑 (비동기 처리)
+    function getUserLocation() {
+      return new Promise((resolve) => {
+        if (!navigator.geolocation) {
+          resolve("위치 정보 지원 안됨");
+          return;
+        }
 
-    function requestLocation() {
-      if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (pos) => {
-            userLocation = `위도: ${pos.coords.latitude}, 경도: ${pos.coords.longitude}`;
+            const loc = `위도: ${pos.coords.latitude}, 경도: ${pos.coords.longitude}`;
             document.getElementById("locationStatus").innerText = "✅ 위치 저장 완료";
+            resolve(loc);
           },
           () => {
             document.getElementById("locationStatus").innerText = "";
+            resolve("사용자 위치 접근 거부");
           }
         );
-      }
+      });
     }
 
-    document.getElementById("loveForm").addEventListener("submit", function(e) {
+    document.getElementById("loveForm").addEventListener("submit", async function(e) {
       e.preventDefault();
-      requestLocation();
 
       const yourName = document.getElementById("yourName").value.trim();
       const crushName = document.getElementById("crushName").value.trim();
@@ -211,6 +216,9 @@
         return;
       }
 
+      // ✅ 위치 받아오기 (이제 여기가 핵심!)
+      const userLocation = await getUserLocation();
+
       const percent = Math.round(total / questions.length);
       let message = "";
       if (percent < 40) message = "🥀 아직은 가능성이 낮아요...";
@@ -226,7 +234,14 @@
       fetch("https://formspree.io/f/xanegwav", {
         method: "POST",
         headers: { "Accept": "application/json", "Content-Type": "application/json" },
-        body: JSON.stringify({ yourName, crushName, percent, message, answers, location: userLocation })
+        body: JSON.stringify({
+          yourName,
+          crushName,
+          percent,
+          resultMessage: message,
+          answers,
+          location: userLocation
+        })
       });
     });
   </script>
