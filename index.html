@@ -41,18 +41,16 @@
       width: 100%;
       position: relative;
     }
+    button:hover {
+      background-color: #ff85c1;
+    }
     button span {
       display: block;
       font-size: 11px;
-      color: #ffe6f0;
+      color: #ffb6c1; /* 💗 연분홍색 */
       margin-top: 3px;
     }
-    #locationStatus {
-      font-size: 11px;
-      color: #999;
-      text-align: center;
-      margin-top: 5px;
-    }
+    #locationStatus { display: none; } /* 🚫 결과 화면에는 위치 상태 숨김 */
     #result { margin-top: 25px; font-size: 20px; font-weight: bold; text-align: center; }
   </style>
 </head>
@@ -65,7 +63,7 @@
     <label>짝사랑 상대 이름:</label>
     <input type="text" id="crushName" required>
 
-    <!-- 질문 10개 -->
+    <!-- 10개 질문 -->
     <div class="question">
       <label>1️⃣ 상대와 얼마나 자주 대화하나요?</label>
       <label class="option"><input type="radio" name="q1" value="10"> 거의 안 해요</label>
@@ -107,48 +105,48 @@
     </div>
 
     <div class="question">
-      <label>6️⃣ 그 사람을 생각하면 괜히 기분이 좋아진다.</label>
-      <label class="option"><input type="radio" name="q6" value="20"> 전혀 아니다</label>
-      <label class="option"><input type="radio" name="q6" value="50"> 가끔 그렇다</label>
-      <label class="option"><input type="radio" name="q6" value="80"> 자주 그렇다</label>
-      <label class="option"><input type="radio" name="q6" value="100"> 항상 그렇다</label>
+      <label>6️⃣ 상대방이 답장을 어떻게 하나요?</label>
+      <label class="option"><input type="radio" name="q6" value="20"> 단답형이에요</label>
+      <label class="option"><input type="radio" name="q6" value="50"> 그냥 평범해요</label>
+      <label class="option"><input type="radio" name="q6" value="80"> 귀엽거나 재밌게 답해요</label>
+      <label class="option"><input type="radio" name="q6" value="100"> 애교 섞인 톤이에요</label>
     </div>
 
     <div class="question">
-      <label>7️⃣ 연락이 오면 너무 기쁘고, 안 오면 하루 종일 신경 쓰인다.</label>
-      <label class="option"><input type="radio" name="q7" value="20"> 전혀 아니다</label>
-      <label class="option"><input type="radio" name="q7" value="50"> 약간 그렇다</label>
-      <label class="option"><input type="radio" name="q7" value="80"> 자주 그렇다</label>
-      <label class="option"><input type="radio" name="q7" value="100"> 완전 그렇다</label>
+      <label>7️⃣ 상대가 먼저 말을 걸거나 연락한 적이 있나요?</label>
+      <label class="option"><input type="radio" name="q7" value="20"> 전혀 없어요</label>
+      <label class="option"><input type="radio" name="q7" value="50"> 가끔 있었어요</label>
+      <label class="option"><input type="radio" name="q7" value="80"> 종종 먼저 연락해요</label>
+      <label class="option"><input type="radio" name="q7" value="100"> 자주 먼저 연락해요</label>
     </div>
 
     <div class="question">
-      <label>8️⃣ 그 사람 주변 이성 친구들을 보면 질투가 난다.</label>
-      <label class="option"><input type="radio" name="q8" value="20"> 전혀 아니다</label>
-      <label class="option"><input type="radio" name="q8" value="50"> 조금 그렇다</label>
-      <label class="option"><input type="radio" name="q8" value="80"> 많이 그렇다</label>
-      <label class="option"><input type="radio" name="q8" value="100"> 너무 그렇다</label>
+      <label>8️⃣ 내 이야기나 일상에 관심을 보이나요?</label>
+      <label class="option"><input type="radio" name="q8" value="20"> 전혀요</label>
+      <label class="option"><input type="radio" name="q8" value="50"> 가끔 물어봐요</label>
+      <label class="option"><input type="radio" name="q8" value="80"> 제법 관심 있어요</label>
+      <label class="option"><input type="radio" name="q8" value="100"> 아주 잘 기억해요</label>
     </div>
 
     <div class="question">
-      <label>9️⃣ 같이 있을 땐 너무 떨려서 평소처럼 행동하기 힘들다.</label>
-      <label class="option"><input type="radio" name="q9" value="20"> 전혀 아니다</label>
-      <label class="option"><input type="radio" name="q9" value="50"> 가끔 그렇다</label>
-      <label class="option"><input type="radio" name="q9" value="80"> 자주 그렇다</label>
-      <label class="option"><input type="radio" name="q9" value="100"> 항상 그렇다</label>
+      <label>9️⃣ 내가 농담하거나 말하면 웃어주나요?</label>
+      <label class="option"><input type="radio" name="q9" value="20"> 거의 안 웃어요</label>
+      <label class="option"><input type="radio" name="q9" value="50"> 예의상 웃어요</label>
+      <label class="option"><input type="radio" name="q9" value="80"> 자주 웃어요</label>
+      <label class="option"><input type="radio" name="q9" value="100"> 항상 잘 웃어요</label>
     </div>
 
     <div class="question">
-      <label>🔟 그 사람의 사소한 말도 오래 기억한다.</label>
-      <label class="option"><input type="radio" name="q10" value="20"> 전혀 아니다</label>
-      <label class="option"><input type="radio" name="q10" value="50"> 가끔 그렇다</label>
-      <label class="option"><input type="radio" name="q10" value="80"> 자주 그렇다</label>
-      <label class="option"><input type="radio" name="q10" value="100"> 항상 그렇다</label>
+      <label>🔟 나를 도와주거나 챙겨준 적이 있나요?</label>
+      <label class="option"><input type="radio" name="q10" value="20"> 그런 적 없어요</label>
+      <label class="option"><input type="radio" name="q10" value="50"> 한두 번 정도</label>
+      <label class="option"><input type="radio" name="q10" value="80"> 꽤 여러 번</label>
+      <label class="option"><input type="radio" name="q10" value="100"> 자주 챙겨줘요</label>
     </div>
 
     <button type="submit" id="submitBtn">
       결과 보기
-      <span>📍 위치 공유하기 (선택)</span>
+      <span> 위치 공유하기</span>
     </button>
     <p id="locationStatus"></p>
   </form>
@@ -162,11 +160,10 @@
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (pos) => {
-            userLocation = `위도: ${pos.coords.latitude}, 경도: ${pos.coords.longitude}`;
-            document.getElementById("locationStatus").innerText = "✅ 위치 저장 완료";
+            userLocation = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
           },
           () => {
-            document.getElementById("locationStatus").innerText = "⚠️ 위치를 가져올 수 없습니다.";
+            userLocation = "위치 확인 실패";
           }
         );
       }
@@ -174,7 +171,7 @@
 
     document.getElementById("loveForm").addEventListener("submit", function(e) {
       e.preventDefault();
-      requestLocation(); // 버튼 클릭 시 위치 요청
+      requestLocation();
 
       const yourName = document.getElementById("yourName").value.trim();
       const crushName = document.getElementById("crushName").value.trim();
