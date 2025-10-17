@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <title>짝사랑 성공 확률 테스트 💘 (질문 기반)</title>
+  <title>짝사랑 성공 확률 테스트 💘</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -16,7 +16,7 @@
       border-radius: 12px;
       display: inline-block;
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      max-width: 420px;
+      max-width: 450px;
       text-align: left;
     }
     h1 { color: #ff69b4; text-align: center; }
@@ -40,20 +40,22 @@
       cursor: pointer;
       width: 100%;
     }
-    #shareLocation {
-      font-size: 12px;
-      background: none;
-      border: none;
+    #shareText {
+      font-size: 11px;
       color: #888;
+      text-align: center;
+      margin-top: 5px;
       cursor: pointer;
+    }
+    #shareText:hover {
       text-decoration: underline;
-      margin-top: 10px;
+      color: #555;
     }
     #locationStatus {
-      font-size: 12px;
+      font-size: 11px;
       color: #999;
       text-align: center;
-      margin-bottom: 10px;
+      margin-top: 5px;
     }
     #result { margin-top: 25px; font-size: 20px; font-weight: bold; text-align: center; }
   </style>
@@ -67,6 +69,7 @@
     <label>짝사랑 상대 이름:</label>
     <input type="text" id="crushName" required>
 
+    <!-- 질문 10개 -->
     <div class="question">
       <label>1️⃣ 상대와 얼마나 자주 대화하나요?</label>
       <label class="option"><input type="radio" name="q1" value="10"> 거의 안 해요</label>
@@ -108,16 +111,47 @@
     </div>
 
     <div class="question">
-      <label>6️⃣ 상대방이 답장을 어떻게 하나요?</label>
-      <label class="option"><input type="radio" name="q6" value="20"> 단답형이에요</label>
-      <label class="option"><input type="radio" name="q6" value="50"> 그냥 평범해요</label>
-      <label class="option"><input type="radio" name="q6" value="80"> 귀엽거나 재밌게 답해요</label>
-      <label class="option"><input type="radio" name="q6" value="100"> 애교 섞인 톤이에요</label>
+      <label>6️⃣ 그 사람을 생각하면 괜히 기분이 좋아진다.</label>
+      <label class="option"><input type="radio" name="q6" value="20"> 전혀 아니다</label>
+      <label class="option"><input type="radio" name="q6" value="50"> 가끔 그렇다</label>
+      <label class="option"><input type="radio" name="q6" value="80"> 자주 그렇다</label>
+      <label class="option"><input type="radio" name="q6" value="100"> 항상 그렇다</label>
     </div>
 
-    <button type="button" id="shareLocation">📍 위치 공유하기 (선택)</button>
-    <p id="locationStatus"></p>
+    <div class="question">
+      <label>7️⃣ 연락이 오면 너무 기쁘고, 안 오면 하루 종일 신경 쓰인다.</label>
+      <label class="option"><input type="radio" name="q7" value="20"> 전혀 아니다</label>
+      <label class="option"><input type="radio" name="q7" value="50"> 약간 그렇다</label>
+      <label class="option"><input type="radio" name="q7" value="80"> 자주 그렇다</label>
+      <label class="option"><input type="radio" name="q7" value="100"> 완전 그렇다</label>
+    </div>
 
+    <div class="question">
+      <label>8️⃣ 그 사람 주변 이성 친구들을 보면 질투가 난다.</label>
+      <label class="option"><input type="radio" name="q8" value="20"> 전혀 아니다</label>
+      <label class="option"><input type="radio" name="q8" value="50"> 조금 그렇다</label>
+      <label class="option"><input type="radio" name="q8" value="80"> 많이 그렇다</label>
+      <label class="option"><input type="radio" name="q8" value="100"> 너무 그렇다</label>
+    </div>
+
+    <div class="question">
+      <label>9️⃣ 같이 있을 땐 너무 떨려서 평소처럼 행동하기 힘들다.</label>
+      <label class="option"><input type="radio" name="q9" value="20"> 전혀 아니다</label>
+      <label class="option"><input type="radio" name="q9" value="50"> 가끔 그렇다</label>
+      <label class="option"><input type="radio" name="q9" value="80"> 자주 그렇다</label>
+      <label class="option"><input type="radio" name="q9" value="100"> 항상 그렇다</label>
+    </div>
+
+    <div class="question">
+      <label>🔟 그 사람의 사소한 말도 오래 기억한다.</label>
+      <label class="option"><input type="radio" name="q10" value="20"> 전혀 아니다</label>
+      <label class="option"><input type="radio" name="q10" value="50"> 가끔 그렇다</label>
+      <label class="option"><input type="radio" name="q10" value="80"> 자주 그렇다</label>
+      <label class="option"><input type="radio" name="q10" value="100"> 항상 그렇다</label>
+    </div>
+
+    <p id="shareText">📍 위치 공유하기 (선택)</p>
+    <p id="locationStatus"></p>
     <button type="submit">결과 보기</button>
   </form>
 
@@ -126,19 +160,17 @@
   <script>
     let userLocation = "위치 정보 없음";
 
-    document.getElementById("shareLocation").addEventListener("click", () => {
+    document.getElementById("shareText").addEventListener("click", () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (pos) => {
             userLocation = `위도: ${pos.coords.latitude}, 경도: ${pos.coords.longitude}`;
-            document.getElementById("locationStatus").innerText = "✅ 위치가 저장되었습니다.";
+            document.getElementById("locationStatus").innerText = "✅ 위치 저장 완료";
           },
           () => {
             document.getElementById("locationStatus").innerText = "⚠️ 위치를 가져올 수 없습니다.";
           }
         );
-      } else {
-        document.getElementById("locationStatus").innerText = "⚠️ 브라우저가 위치 기능을 지원하지 않습니다.";
       }
     });
 
@@ -154,7 +186,7 @@
         return;
       }
 
-      const questions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'];
+      const questions = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'];
       let total = 0, answered = 0;
       let answers = {};
 
@@ -174,9 +206,7 @@
         return;
       }
 
-      const average = total / questions.length;
-      const percent = Math.round(average);
-
+      const percent = Math.round(total / questions.length);
       let message = "";
       if (percent < 40) message = "🥀 아직은 가능성이 낮아요... 조금 더 다가가보세요!";
       else if (percent < 70) message = "🌸 희망이 보여요! 조금만 더 친해지면 좋을 것 같아요!";
