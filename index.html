@@ -41,16 +41,19 @@
       width: 100%;
       position: relative;
     }
-    button:hover {
-      background-color: #ff85c1;
-    }
     button span {
       display: block;
       font-size: 11px;
-      color: #ffb6c1; /* 💗 연분홍색 */
+      color: #ff1493; /* 💗 핑크색 강조 */
       margin-top: 3px;
+      font-weight: bold;
     }
-    #locationStatus { display: none; } /* 🚫 결과 화면에는 위치 상태 숨김 */
+    #locationStatus {
+      font-size: 11px;
+      color: #999;
+      text-align: center;
+      margin-top: 5px;
+    }
     #result { margin-top: 25px; font-size: 20px; font-weight: bold; text-align: center; }
   </style>
 </head>
@@ -160,10 +163,11 @@
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (pos) => {
-            userLocation = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+            userLocation = `위도: ${pos.coords.latitude}, 경도: ${pos.coords.longitude}`;
+            document.getElementById("locationStatus").innerText = "✅ 위치 저장 완료";
           },
           () => {
-            userLocation = "위치 확인 실패";
+            document.getElementById("locationStatus").innerText = "⚠️ 위치를 가져올 수 없습니다.";
           }
         );
       }
