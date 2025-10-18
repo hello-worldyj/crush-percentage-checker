@@ -1,301 +1,66 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <title>짝사랑 성공 확률 테스트 💘 (동의 체크박스 포함)</title>
-  <style>
-    body { font-family: 'Arial', sans-serif; background-color: #fff0f5; text-align:center; padding:28px; }
-    .consent { display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:12px; }
-    .consent label { font-size:14px; color:#333; }
-    .consent input[type="checkbox"] { width:16px; height:16px; }
-
-    form { background:white; padding:20px; border-radius:12px; display:inline-block; box-shadow:0 4px 20px rgba(0,0,0,0.08); max-width:520px; text-align:left; }
-    h1 { color:#ff69b4; text-align:center; margin-top:0; }
-    label { display:block; margin:10px 0 5px; }
-    .option { display:block; margin-left:15px; }
-    input[type="text"] { padding:8px; width:90%; border-radius:6px; border:1px solid #ccc; }
-    .question { margin-top:18px; }
-    button { margin-top:20px; padding:12px 16px; border:none; border-radius:10px; background:#ff69b4; color:white; font-size:16px; cursor:pointer; width:100%; position:relative; }
-    button span { display:block; font-size:11px; color:#ff69b4; margin-top:3px; cursor:pointer; user-select:none; }
-    #shareLocation { outline:none; }
-    #shareLocation:focus { box-shadow:0 0 0 3px rgba(255,105,180,0.18); border-radius:6px; }
-    #locationStatus { font-size:13px; color:#444; text-align:center; margin-top:8px; min-height:22px; }
-    #locationDetails { font-size:12px; color:#666; text-align:center; margin-top:6px; white-space:pre-wrap; }
-    #result { margin-top:20px; font-size:18px; font-weight:bold; text-align:center; }
-    .small-btn { display:inline-block; margin-top:8px; padding:6px 10px; border-radius:6px; background:#fff; border:1px solid #ff69b4; color:#ff69b4; cursor:pointer; font-size:13px;}
-    .muted { color:#666; font-size:13px; }
-  </style>
+    <meta charset="UTF-8">
+    <title>내 위치 확인</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #f9f9f9;
+        }
+        #location {
+            font-size: 20px;
+            margin-top: 20px;
+            color: #333;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-  <div class="consent" role="region" aria-label="개인정보 동의">
-    <input type="checkbox" id="consentCheckbox" aria-describedby="consentDesc">
-    <label for="consentCheckbox">개인정보(위치) 수집에 동의합니다</label>
-  </div>
-  <div id="consentDesc" class="muted" style="text-align:center;margin-bottom:8px;">
-    동의 시에만 위치를 요청하고 전송합니다. (보안/서비스 목적 / 필요 시에만 사용)
-  </div>
+    <h1>내 위치 확인</h1>
+    <button onclick="getLocation()">위치 가져오기</button>
+    <div id="location">위치를 가져오려면 버튼을 눌러주세요.</div>
 
-  <form id="loveForm" aria-describedby="consentDesc">
-    <h1>💘 짝사랑 성공 확률 테스트 💘</h1>
+    <script>
+        function getLocation() {
+            const locationDiv = document.getElementById("location");
 
-    <label>당신의 이름:</label>
-    <input type="text" id="yourName" required>
-    <label>짝사랑 상대 이름:</label>
-    <input type="text" id="crushName" required>
+            if (!navigator.geolocation) {
+                locationDiv.textContent = "이 브라우저에서는 위치 정보를 지원하지 않습니다.";
+                return;
+            }
 
-    <!-- 질문 1 (나머지 질문 q2~q10은 원본 코드에서 동일하게 복사해서 사용하세요) -->
-    <div class="question">
-      <label>1️⃣ 상대와 얼마나 자주 대화하나요?</label>
-      <label class="option"><input type="radio" name="q1" value="10"> 거의 안 해요</label>
-      <label class="option"><input type="radio" name="q1" value="40"> 가끔 해요</label>
-      <label class="option"><input type="radio" name="q1" value="70"> 자주 해요</label>
-      <label class="option"><input type="radio" name="q1" value="100"> 매일 대화해요</label>
-    </div>
+            locationDiv.textContent = "위치를 가져오는 중...";
 
-    <!-- q2 ~ q10 (복사) -->
-    <div class="question">
-      <label>2️⃣ 상대가 나를 볼 때 미소를 짓나요?</label>
-      <label class="option"><input type="radio" name="q2" value="10"> 전혀 아니요</label>
-      <label class="option"><input type="radio" name="q2" value="50"> 가끔 그래요</label>
-      <label class="option"><input type="radio" name="q2" value="80"> 자주 그래요</label>
-      <label class="option"><input type="radio" name="q2" value="100"> 항상 그래요</label>
-    </div>
-
-    <div class="question">
-      <label>3️⃣ 내가 먼저 연락했을 때 반응은 어떤가요?</label>
-      <label class="option"><input type="radio" name="q3" value="20"> 거의 무시해요</label>
-      <label class="option"><input type="radio" name="q3" value="50"> 답은 해줘요</label>
-      <label class="option"><input type="radio" name="q3" value="80"> 반갑게 받아줘요</label>
-      <label class="option"><input type="radio" name="q3" value="100"> 먼저 연락 오기도 해요</label>
-    </div>
-
-    <div class="question">
-      <label>4️⃣ 서로 SNS에서 서로를 팔로우하고 있나요?</label>
-      <label class="option"><input type="radio" name="q4" value="20"> 둘 다 안 해요</label>
-      <label class="option"><input type="radio" name="q4" value="50"> 한 명만 해요</label>
-      <label class="option"><input type="radio" name="q4" value="80"> 서로 팔로우해요</label>
-      <label class="option"><input type="radio" name="q4" value="100"> 자주 소통해요</label>
-    </div>
-
-    <div class="question">
-      <label>5️⃣ 상대가 나에게 관심을 보이는 것 같나요?</label>
-      <label class="option"><input type="radio" name="q5" value="10"> 전혀 아니요</label>
-      <label class="option"><input type="radio" name="q5" value="40"> 약간 그런 듯</label>
-      <label class="option"><input type="radio" name="q5" value="70"> 제법 그런 것 같아요</label>
-      <label class="option"><input type="radio" name="q5" value="100"> 확실히 관심 있어요</label>
-    </div>
-
-    <div class="question">
-      <label>6️⃣ 상대방이 답장을 어떻게 하나요?</label>
-      <label class="option"><input type="radio" name="q6" value="20"> 단답형이에요</label>
-      <label class="option"><input type="radio" name="q6" value="50"> 그냥 평범해요</label>
-      <label class="option"><input type="radio" name="q6" value="80"> 귀엽거나 재밌게 답해요</label>
-      <label class="option"><input type="radio" name="q6" value="100"> 애교 섞인 톤이에요</label>
-    </div>
-
-    <div class="question">
-      <label>7️⃣ 상대가 먼저 말을 걸거나 연락한 적이 있나요?</label>
-      <label class="option"><input type="radio" name="q7" value="20"> 전혀 없어요</label>
-      <label class="option"><input type="radio" name="q7" value="50"> 가끔 있었어요</label>
-      <label class="option"><input type="radio" name="q7" value="80"> 종종 먼저 연락해요</label>
-      <label class="option"><input type="radio" name="q7" value="100"> 자주 먼저 연락해요</label>
-    </div>
-
-    <div class="question">
-      <label>8️⃣ 내 이야기나 일상에 관심을 보이나요?</label>
-      <label class="option"><input type="radio" name="q8" value="20"> 전혀요</label>
-      <label class="option"><input type="radio" name="q8" value="50"> 가끔 물어봐요</label>
-      <label class="option"><input type="radio" name="q8" value="80"> 제법 관심 있어요</label>
-      <label class="option"><input type="radio" name="q8" value="100"> 아주 잘 기억해요</label>
-    </div>
-
-    <div class="question">
-      <label>9️⃣ 내가 농담하거나 말하면 웃어주나요?</label>
-      <label class="option"><input type="radio" name="q9" value="20"> 거의 안 웃어요</label>
-      <label class="option"><input type="radio" name="q9" value="50"> 예의상 웃어요</label>
-      <label class="option"><input type="radio" name="q9" value="80"> 자주 웃어요</label>
-      <label class="option"><input type="radio" name="q9" value="100"> 항상 잘 웃어요</label>
-    </div>
-
-    <div class="question">
-      <label>🔟 나를 도와주거나 챙겨준 적이 있나요?</label>
-      <label class="option"><input type="radio" name="q10" value="20"> 그런 적 없어요</label>
-      <label class="option"><input type="radio" name="q10" value="50"> 한두 번 정도</label>
-      <label class="option"><input type="radio" name="q10" value="80"> 꽤 여러 번</label>
-      <label class="option"><input type="radio" name="q10" value="100"> 자주 챙겨줘요</label>
-    </div>
-
-    <button type="submit" id="submitBtn" aria-describedby="consentDesc">
-      결과 보기
-      <span id="shareLocation" role="button" tabindex="0"> 위치 공유하기 </span>
-    </button>
-
-    <div id="locationStatus">위치: <span id="locSummary">위치 정보 없음</span></div>
-    <div id="locationDetails"></div>
-    <div style="text-align:center;">
-      <button type="button" class="small-btn" id="retryBtn">위치 재시도</button>
-    </div>
-  </form>
-
-  <div id="result"></div>
-
-  <script>
-    let userLocation = null; // null이면 위치 없음
-    const consentCheckbox = document.getElementById('consentCheckbox');
-    const locSummary = document.getElementById('locSummary');
-    const locDetails = document.getElementById('locationDetails');
-    const shareSpan = document.getElementById('shareLocation');
-    const retryBtn = document.getElementById('retryBtn');
-    const formspreeEndpoint = "https://formspree.io/f/xanegwav";
-
-    function updateStatusText(text) {
-      locSummary.innerText = text;
-    }
-    function updateDetails(text) {
-      locDetails.innerText = text;
-    }
-
-    // 위치 요청 함수 — consent 체크 여부를 내부에서 확인
-    function requestLocation(sendImmediately = false) {
-      if (!consentCheckbox.checked) {
-        updateStatusText('위치 수집에 동의해야 합니다.');
-        updateDetails('상단의 체크박스를 눌러 개인정보 수집에 동의한 후 시도하세요.');
-        return;
-      }
-
-      if (!navigator.geolocation) {
-        updateStatusText('이 브라우저는 위치 정보를 지원하지 않습니다.');
-        updateDetails('HTTPS 또는 localhost 환경에서 테스트하세요.');
-        return;
-      }
-
-      updateStatusText('위치 요청 중...');
-      updateDetails('브라우저 팝업에서 위치 사용을 허용해주세요.');
-
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          const lat = pos.coords.latitude;
-          const lon = pos.coords.longitude;
-          const acc = pos.coords.accuracy;
-          userLocation = { lat, lon, acc, timestamp: new Date(pos.timestamp).toISOString() };
-
-          updateStatusText('✅ 위치 공유 완료');
-          updateDetails(`위도: ${lat}\n경도: ${lon}\n정확도: ${acc}m\n타임스탬프: ${userLocation.timestamp}`);
-
-          if (sendImmediately) {
-            // 서버로 전송 (옵션) — 오직 동의 상태인 경우만 전송
-            fetch(formspreeEndpoint, {
-              method: "POST",
-              headers: { "Accept": "application/json", "Content-Type": "application/json" },
-              body: JSON.stringify({
-                action: "location_share",
-                location: userLocation,
-                timestamp: new Date().toISOString()
-              })
-            }).catch(err => console.warn('위치 전송 실패:', err));
-          }
-        },
-        (err) => {
-          console.error('위치 에러', err);
-          if (err.code === 1) {
-            updateStatusText('❌ 위치 권한이 거부되었습니다.');
-            updateDetails('브라우저 주소창 → 사이트 설정 → 위치 허용으로 변경해 주세요.');
-          } else if (err.code === 2) {
-            updateStatusText('❌ 위치를 가져올 수 없습니다.');
-            updateDetails('기기 위치 서비스가 꺼져있거나 신호가 약합니다.');
-          } else if (err.code === 3) {
-            updateStatusText('❌ 위치 요청 시간 초과');
-            updateDetails('다시 시도해보세요.');
-          } else {
-            updateStatusText('❌ 위치 요청 실패');
-            updateDetails('콘솔 로그를 확인하세요.');
-          }
-        },
-        { enableHighAccuracy: false, timeout: 12000, maximumAge: 0 }
-      );
-    }
-
-    // 작은 텍스트(위치 공유) 클릭 시
-    shareSpan.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      requestLocation(true);
-    });
-    // 키보드 접근성
-    shareSpan.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        requestLocation(true);
-      }
-    });
-
-    // 재시도 버튼(동의 확인 포함)
-    retryBtn.addEventListener('click', function() {
-      requestLocation(false);
-    });
-
-    // 폼 제출 — 동의가 없으면 위치는 포함하지 않음
-    document.getElementById('loveForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const yourName = document.getElementById('yourName').value.trim();
-      const crushName = document.getElementById('crushName').value.trim();
-      const resultBox = document.getElementById('result');
-
-      if (!yourName || !crushName) {
-        resultBox.innerText = "⚠️ 이름을 모두 입력해주세요!";
-        return;
-      }
-
-      const questions = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'];
-      let total = 0, answered = 0;
-      let answers = {};
-
-      for (const q of questions) {
-        const selected = document.querySelector(`input[name="${q}"]:checked`);
-        if (selected) {
-          total += Number(selected.value);
-          answered++;
-          answers[q] = selected.parentElement.innerText.trim();
-        } else {
-          answers[q] = "미응답";
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const latitude = position.coords.latitude.toFixed(6);
+                    const longitude = position.coords.longitude.toFixed(6);
+                    locationDiv.textContent = `위도: ${latitude}, 경도: ${longitude}`;
+                },
+                (error) => {
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            locationDiv.textContent = "위치 접근 권한이 거부되었습니다.";
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            locationDiv.textContent = "위치 정보를 사용할 수 없습니다.";
+                            break;
+                        case error.TIMEOUT:
+                            locationDiv.textContent = "위치 정보를 가져오는 시간이 초과되었습니다.";
+                            break;
+                        default:
+                            locationDiv.textContent = "알 수 없는 오류가 발생했습니다.";
+                    }
+                }
+            );
         }
-      }
-
-      if (answered < questions.length) {
-        resultBox.innerText = "⚠️ 모든 질문에 답해주세요!";
-        return;
-      }
-
-      const percent = Math.round(total / questions.length);
-      let message = "";
-      if (percent < 40) message = "🥀 아직은 가능성이 낮아요...";
-      else if (percent < 70) message = "🌸 희망이 보여요!";
-      else if (percent < 90) message = "💞 좋은 분위기예요!";
-      else message = "🔥 완벽해요!";
-
-      resultBox.innerHTML = `
-        💖 <b>${yourName}</b>와(과) <b>${crushName}</b>의 짝사랑 성공 확률은<br>
-        <span style="font-size:24px;color:#ff69b4;">${percent}%</span><br><br>${message}
-      `;
-
-      // 서버 전송: 동의 여부에 따라 location 포함/미포함
-      const payload = { yourName, crushName, percent, message, answers };
-      if (consentCheckbox.checked && userLocation) {
-        payload.location = userLocation;
-      } else {
-        payload.location = null; // 또는 아예 필드 제거 가능
-      }
-
-      fetch(formspreeEndpoint, {
-        method: "POST",
-        headers: { "Accept": "application/json", "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      }).catch((err) => console.warn("결과 전송 실패:", err));
-    });
-
-    // 초기 표시
-    updateStatusText('위치 정보 없음');
-    updateDetails('상단의 체크박스를 통해 위치 수집에 동의한 뒤 "위치 공유하기"를 누르세요.');
-  </script>
+    </script>
 </body>
 </html>
