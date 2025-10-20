@@ -1,10 +1,11 @@
 {
-  "name": "호감도 테스트 💘",
-  "short_name": "호감도💘",
+  "name": "사랑스러운 앱 💕",
+  "short_name": "LoveApp",
+  "description": "하트처럼 사랑스러운 웹앱 💖",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#fff0f5",
-  "theme_color": "#ff4f8b",
+  "background_color": "#ffe4ec",
+  "theme_color": "#ff5b99",
   "icons": [
     {
       "src": "heart.png",
