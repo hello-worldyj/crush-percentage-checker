@@ -1,0 +1,20 @@
+{
+  "name": "호감도 테스트 💘",
+  "short_name": "호감도💘",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fff0f5",
+  "theme_color": "#ff4f8b",
+  "icons": [
+    {
+      "src": "heart.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "heart.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
