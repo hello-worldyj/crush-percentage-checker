@@ -1,20 +1,20 @@
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open('love-quiz-cache').then((cache) => {
+self.addEventListener("install", e => {
+  e.waitUntil(
+    caches.open("love-quiz-v1").then(cache => {
       return cache.addAll([
-        './',
-        './index.html',
-        './heart.png',
-        './manifest.json'
+        "./",
+        "./index.html",
+        "./manifest.json",
+        "./heart.png"
       ]);
     })
   );
 });
 
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
+self.addEventListener("fetch", e => {
+  e.respondWith(
+    caches.match(e.request).then(res => {
+      return res || fetch(e.request);
     })
   );
 });
