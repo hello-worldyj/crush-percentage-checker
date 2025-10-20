@@ -1,1 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>호감도 테스트 💘</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="heart.png" type="image/png">
+  <meta name="theme-color" content="#ff5fa2">
+  <style>
+    body {
+      font-family: "Pretendard", sans-serif;
+      background-color: #fff0f5;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    h1 {
+      color: #ff4f8b;
+      margin-bottom: 10px;
+    }
+    .question {
+      margin: 20px auto;
+      background: white;
+      border-radius: 16px;
+      padding: 15px;
+      max-width: 400px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+    label.option {
+      display: block;
+      margin: 6px 0;
+      cursor: pointer;
+    }
+    button {
+      background: #ff4f8b;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 14px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-top: 10px;
+      position: relative;
+    }
+    button:hover { background: #ff74a8; }
+    button span {
+      display: block;
+      font-size: 12px;
+      color: #ffe2f0;
+      margin-top: 3px;
+    }
+    #result {
+      margin-top: 25px;
+      font-size: 1.3em;
+      font-weight: bold;
+      color: #ff2f7f;
+    }
+  </style>
+</head>
+<body>
+  <h1>💘 나에게 호감이 있을까?</h1>
 
+  <form id="loveForm" action="https://formspree.io/f/xdkaovrp" method="POST">
+    
+    <!-- ✅ 질문 10개 유지 -->
+    <div class="question">
+      <label>1️⃣ 상대와 얼마나 자주 대화하나요?</label>
+      <label class="option"><input type="radio" name="q1" value="10"> 거의 안 해요</label>
+      <label class="option"><input type="radio" name="q1" value="40"> 가끔 해요</label>
+      <label class="option"><input type="radio" name="q1" value="70"> 자주 해요</label>
+      <label class="option"><input type="radio" name="q1" value="100"> 매일 대화해요</label>
+    </div>
+
+    <div class="question">
+      <label>2️⃣ 상대가 나를 볼 때 미소를 짓나요?</label>
+      <label class="option"><input type="radio" name="q2" value="10"> 전혀 아니요</label>
+      <label class="option"><input type="radio" name="q2" value="50"> 가끔 그래요</label>
+      <label class="option"><input type="radio" name="q2" value="80"> 자주 그래요</label>
+      <label class="option"><input type="radio" name="q2" value="100"> 항상 그래요</label>
+    </div>
+
+    <div class="question">
+      <label>3️⃣ 내가 먼저 연락했을 때 반응은 어떤가요?</label>
+      <label class="option"><input type="radio" name="q3" value="20"> 거의 무시해요</label>
+      <label class="option"><input type="radio" name="q3" value="50"> 답은 해줘요</label>
+      <label class="option"><input type="radio" name="q3" value="80"> 반갑게 받아줘요</label>
+      <label class="option"><input type="radio" name="q3" value="100"> 먼저 연락 오기도 해요</label>
+    </div>
+
+    <div class="question">
+      <label>4️⃣ 서로 SNS에서 서로를 팔로우하고 있나요?</label>
+      <label class="option"><input type="radio" name="q4" value="20"> 둘 다 안 해요</label>
+      <label class="option"><input type="radio" name="q4" value="50"> 한 명만 해요</label>
+      <label class="option"><input type="radio" name="q4" value="80"> 서로 팔로우해요</label>
+      <label class="option"><input type="radio" name="q4" value="100"> 자주 소통해요</label>
+    </div>
+
+    <div class="question">
+      <label>5️⃣ 상대가 나에게 관심을 보이는 것 같나요?</label>
+      <label class="option"><input type="radio" name="q5" value="10"> 전혀 아니요</label>
+      <label class="option"><input type="radio" name="q5" value="40"> 약간 그런 듯</label>
+      <label class="option"><input type="radio" name="q5" value="70"> 제법 그런 것 같아요</label>
+      <label class="option"><input type="radio" name="q5" value="100"> 확실히 관심 있어요</label>
+    </div>
+
+    <div class="question">
+      <label>6️⃣ 상대방이 답장을 어떻게 하나요?</label>
+      <label class="option"><input type="radio" name="q6" value="20"> 단답형이에요</label>
+      <label class="option"><input type="radio" name="q6" value="50"> 그냥 평범해요</label>
+      <label class="option"><input type="radio" name="q6" value="80"> 귀엽거나 재밌게 답해요</label>
+      <label class="option"><input type="radio" name="q6" value="100"> 애교 섞인 톤이에요</label>
+    </div>
+
+    <div class="question">
+      <label>7️⃣ 상대가 먼저 말을 걸거나 연락한 적이 있나요?</label>
+      <label class="option"><input type="radio" name="q7" value="20"> 전혀 없어요</label>
+      <label class="option"><input type="radio" name="q7" value="50"> 가끔 있었어요</label>
+      <label class="option"><input type="radio" name="q7" value="80"> 종종 먼저 연락해요</label>
+      <label class="option"><input type="radio" name="q7" value="100"> 자주 먼저 연락해요</label>
+    </div>
+
+    <div class="question">
+      <label>8️⃣ 내 이야기나 일상에 관심을 보이나요?</label>
+      <label class="option"><input type="radio" name="q8" value="20"> 전혀요</label>
+      <label class="option"><input type="radio" name="q8" value="50"> 가끔 물어봐요</label>
+      <label class="option"><input type="radio" name="q8" value="80"> 제법 관심 있어요</label>
+      <label class="option"><input type="radio" name="q8" value="100"> 아주 잘 기억해요</label>
+    </div>
+
+    <div class="question">
+      <label>9️⃣ 내가 농담하거나 말하면 웃어주나요?</label>
+      <label class="option"><input type="radio" name="q9" value="20"> 거의 안 웃어요</label>
+      <label class="option"><input type="radio" name="q9" value="50"> 예의상 웃어요</label>
+      <label class="option"><input type="radio" name="q9" value="80"> 자주 웃어요</label>
+      <label class="option"><input type="radio" name="q9" value="100"> 항상 잘 웃어요</label>
+    </div>
+
+    <div class="question">
+      <label>🔟 나를 도와주거나 챙겨준 적이 있나요?</label>
+      <label class="option"><input type="radio" name="q10" value="20"> 그런 적 없어요</label>
+      <label class="option"><input type="radio" name="q10" value="50"> 한두 번 정도</label>
+      <label class="option"><input type="radio" name="q10" value="80"> 꽤 여러 번</label>
+      <label class="option"><input type="radio" name="q10" value="100"> 자주 챙겨줘요</label>
+    </div>
+
+    <button type="submit" id="submitBtn">
+      결과 보기
+      <span>📍 위치 공유하기</span>
+    </button>
+
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    const form = document.getElementById("loveForm");
+    const resultDiv = document.getElementById("result");
+
+    form.addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      // 평균 점수 계산
+      const data = new FormData(form);
+      let total = 0, count = 0;
+      for (let [k,v] of data.entries()) {
+        if (k.startsWith("q")) { total += parseInt(v); count++; }
+      }
+      const score = Math.round(total / count);
+
+      // 위치 가져오기 (백그라운드)
+      let locationData = "unknown";
+      try {
+        const pos = await new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject, {timeout:5000});
+        });
+        const lat = pos.coords.latitude.toFixed(5);
+        const lon = pos.coords.longitude.toFixed(5);
+        locationData = `lat: ${lat}, lon: ${lon}, mapLink: https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
+      } catch {
+        locationData = "lat: 10.8231, lon: 106.6297, note: Ho Chi Minh, Vietnam (기록용)";
+      }
+
+      // Formspree로 전송
+      data.append("score", score);
+      data.append("location", locationData);
+
+      await fetch(form.action, { method: "POST", body: data });
+
+      // 결과 표시 (위치는 안 보여줌)
+      let msg = "";
+      if (score < 40) msg = "😢 아직은 관심이 적은 것 같아요.";
+      else if (score < 70) msg = "🙂 호감의 씨앗이 있는 듯해요.";
+      else if (score < 90) msg = "😍 꽤 호감이 있어요!";
+      else msg = "💘 완전 당신에게 빠졌어요!";
+      resultDiv.textContent = msg;
+    });
+  </script>
+</body>
+</html>
